@@ -234,3 +234,13 @@ th { background: var(--surface-2); }
 @media (min-width: 901px) { .demo .code { white-space: pre-wrap; overflow-wrap: anywhere; } }
 .card-icon { display: inline-grid; vertical-align: middle; margin: 0 8px 12px 0; }
 .link-card .tag { margin: 0 0 12px; vertical-align: middle; }
+/* Pantallas grandes: el contenido crece con la ventana (los artículos mantienen una línea legible) */
+.wrap { max-width: 1320px; padding-left: clamp(16px, 4vw, 56px); padding-right: clamp(16px, 4vw, 56px); }
+@media (min-width: 1600px) {
+  .wrap { max-width: 1480px; }
+  body { font-size: 1.0625rem; }
+  .hero { padding: 80px 0 64px; }
+  .hero-grid { gap: 64px; }
+  .demo .code { font-size: .9rem; }
+}
+.howto { max-width: 900px; }
