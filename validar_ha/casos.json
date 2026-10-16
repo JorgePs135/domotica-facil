@@ -1,0 +1,104 @@
+{
+  "a_ejemplo": {
+    "template": "movimiento",
+    "values": {
+      "alias": "Luz del pasillo por movimiento",
+      "sensor": "binary_sensor.movimiento_pasillo",
+      "target": "light.pasillo",
+      "minutes": "2",
+      "brightness": "60",
+      "onlyDark": true
+    },
+    "yaml": "alias: \"Luz del pasillo por movimiento\"\ndescription: \"Enciende light.pasillo con movimiento y la apaga tras 2 min sin movimiento. Generada con Domótica Fácil.\"\nmode: restart\ntriggers:\n  - trigger: state\n    entity_id: binary_sensor.movimiento_pasillo\n    from: \"off\"\n    to: \"on\"\nconditions:\n  - condition: state\n    entity_id: sun.sun\n    state: below_horizon\nactions:\n  - action: light.turn_on\n    target:\n      entity_id: light.pasillo\n    data:\n      brightness_pct: 60\n  - wait_for_trigger:\n      - trigger: state\n        entity_id: binary_sensor.movimiento_pasillo\n        from: \"on\"\n        to: \"off\"\n  - delay:\n      minutes: 2\n  - action: light.turn_off\n    target:\n      entity_id: light.pasillo\n",
+    "listYaml": "- id: \"caso_a_ejemplo\"\n  alias: \"Luz del pasillo por movimiento\"\n  description: \"Enciende light.pasillo con movimiento y la apaga tras 2 min sin movimiento. Generada con Domótica Fácil.\"\n  mode: restart\n  triggers:\n    - trigger: state\n      entity_id: binary_sensor.movimiento_pasillo\n      from: \"off\"\n      to: \"on\"\n  conditions:\n    - condition: state\n      entity_id: sun.sun\n      state: below_horizon\n  actions:\n    - action: light.turn_on\n      target:\n        entity_id: light.pasillo\n      data:\n        brightness_pct: 60\n    - wait_for_trigger:\n        - trigger: state\n          entity_id: binary_sensor.movimiento_pasillo\n          from: \"on\"\n          to: \"off\"\n    - delay:\n        minutes: 2\n    - action: light.turn_off\n      target:\n        entity_id: light.pasillo\n"
+  },
+  "a_enchufe_sin_espera": {
+    "template": "movimiento",
+    "values": {
+      "alias": "Luz del pasillo por movimiento",
+      "sensor": "binary_sensor.movimiento_pasillo",
+      "target": "switch.enchufe_pasillo",
+      "minutes": "0",
+      "brightness": "",
+      "onlyDark": false
+    },
+    "yaml": "alias: \"Luz del pasillo por movimiento\"\ndescription: \"Enciende switch.enchufe_pasillo con movimiento y la apaga tras 0 min sin movimiento. Generada con Domótica Fácil.\"\nmode: restart\ntriggers:\n  - trigger: state\n    entity_id: binary_sensor.movimiento_pasillo\n    from: \"off\"\n    to: \"on\"\nactions:\n  - action: switch.turn_on\n    target:\n      entity_id: switch.enchufe_pasillo\n  - wait_for_trigger:\n      - trigger: state\n        entity_id: binary_sensor.movimiento_pasillo\n        from: \"on\"\n        to: \"off\"\n  - action: switch.turn_off\n    target:\n      entity_id: switch.enchufe_pasillo\n",
+    "listYaml": "- id: \"caso_a_enchufe_sin_espera\"\n  alias: \"Luz del pasillo por movimiento\"\n  description: \"Enciende switch.enchufe_pasillo con movimiento y la apaga tras 0 min sin movimiento. Generada con Domótica Fácil.\"\n  mode: restart\n  triggers:\n    - trigger: state\n      entity_id: binary_sensor.movimiento_pasillo\n      from: \"off\"\n      to: \"on\"\n  actions:\n    - action: switch.turn_on\n      target:\n        entity_id: switch.enchufe_pasillo\n    - wait_for_trigger:\n        - trigger: state\n          entity_id: binary_sensor.movimiento_pasillo\n          from: \"on\"\n          to: \"off\"\n    - action: switch.turn_off\n      target:\n        entity_id: switch.enchufe_pasillo\n"
+  },
+  "a_alias_raro": {
+    "template": "movimiento",
+    "values": {
+      "alias": "Luz \"pasillo\": #1 {{ no es plantilla }}",
+      "sensor": "binary_sensor.movimiento_pasillo",
+      "target": "light.pasillo",
+      "minutes": "2",
+      "brightness": "60",
+      "onlyDark": false
+    },
+    "yaml": "alias: \"Luz \\\"pasillo\\\": #1 {{ no es plantilla }}\"\ndescription: \"Enciende light.pasillo con movimiento y la apaga tras 2 min sin movimiento. Generada con Domótica Fácil.\"\nmode: restart\ntriggers:\n  - trigger: state\n    entity_id: binary_sensor.movimiento_pasillo\n    from: \"off\"\n    to: \"on\"\nactions:\n  - action: light.turn_on\n    target:\n      entity_id: light.pasillo\n    data:\n      brightness_pct: 60\n  - wait_for_trigger:\n      - trigger: state\n        entity_id: binary_sensor.movimiento_pasillo\n        from: \"on\"\n        to: \"off\"\n  - delay:\n      minutes: 2\n  - action: light.turn_off\n    target:\n      entity_id: light.pasillo\n",
+    "listYaml": "- id: \"caso_a_alias_raro\"\n  alias: \"Luz \\\"pasillo\\\": #1 {{ no es plantilla }}\"\n  description: \"Enciende light.pasillo con movimiento y la apaga tras 2 min sin movimiento. Generada con Domótica Fácil.\"\n  mode: restart\n  triggers:\n    - trigger: state\n      entity_id: binary_sensor.movimiento_pasillo\n      from: \"off\"\n      to: \"on\"\n  actions:\n    - action: light.turn_on\n      target:\n        entity_id: light.pasillo\n      data:\n        brightness_pct: 60\n    - wait_for_trigger:\n        - trigger: state\n          entity_id: binary_sensor.movimiento_pasillo\n          from: \"on\"\n          to: \"off\"\n    - delay:\n        minutes: 2\n    - action: light.turn_off\n      target:\n        entity_id: light.pasillo\n"
+  },
+  "b_ejemplo": {
+    "template": "umbral",
+    "values": {
+      "alias": "Aviso de temperatura alta",
+      "sensor": "sensor.temperatura_salon",
+      "direction": "above",
+      "threshold": "28",
+      "forMinutes": "10",
+      "method": "persistent",
+      "notifyEntity": "",
+      "title": "Aviso de Home Assistant",
+      "message": "La temperatura del salón ha pasado de 28 °C.",
+      "includeValue": true
+    },
+    "yaml": "alias: \"Aviso de temperatura alta\"\ndescription: \"Avisa cuando sensor.temperatura_salon supera 28. Generada con Domótica Fácil.\"\nmode: single\ntriggers:\n  - trigger: numeric_state\n    entity_id: sensor.temperatura_salon\n    above: 28\n    for:\n      minutes: 10\nactions:\n  - action: persistent_notification.create\n    data:\n      title: \"Aviso de Home Assistant\"\n      message: \"La temperatura del salón ha pasado de 28 °C. Valor actual: {{ states('sensor.temperatura_salon') }}\"\n",
+    "listYaml": "- id: \"caso_b_ejemplo\"\n  alias: \"Aviso de temperatura alta\"\n  description: \"Avisa cuando sensor.temperatura_salon supera 28. Generada con Domótica Fácil.\"\n  mode: single\n  triggers:\n    - trigger: numeric_state\n      entity_id: sensor.temperatura_salon\n      above: 28\n      for:\n        minutes: 10\n  actions:\n    - action: persistent_notification.create\n      data:\n        title: \"Aviso de Home Assistant\"\n        message: \"La temperatura del salón ha pasado de 28 °C. Valor actual: {{ states('sensor.temperatura_salon') }}\"\n"
+  },
+  "b_movil_por_debajo": {
+    "template": "umbral",
+    "values": {
+      "alias": "Aviso de temperatura alta",
+      "sensor": "sensor.temperatura_salon",
+      "direction": "below",
+      "threshold": "-2.5",
+      "forMinutes": "",
+      "method": "mobile",
+      "notifyEntity": "notify.mobile_app_pixel",
+      "title": "",
+      "message": "La temperatura del salón ha pasado de 28 °C.",
+      "includeValue": true
+    },
+    "yaml": "alias: \"Aviso de temperatura alta\"\ndescription: \"Avisa cuando sensor.temperatura_salon baja de -2.5. Generada con Domótica Fácil.\"\nmode: single\ntriggers:\n  - trigger: numeric_state\n    entity_id: sensor.temperatura_salon\n    below: -2.5\nactions:\n  - action: notify.send_message\n    target:\n      entity_id: notify.mobile_app_pixel\n    data:\n      message: \"La temperatura del salón ha pasado de 28 °C. Valor actual: {{ states('sensor.temperatura_salon') }}\"\n",
+    "listYaml": "- id: \"caso_b_movil_por_debajo\"\n  alias: \"Aviso de temperatura alta\"\n  description: \"Avisa cuando sensor.temperatura_salon baja de -2.5. Generada con Domótica Fácil.\"\n  mode: single\n  triggers:\n    - trigger: numeric_state\n      entity_id: sensor.temperatura_salon\n      below: -2.5\n  actions:\n    - action: notify.send_message\n      target:\n        entity_id: notify.mobile_app_pixel\n      data:\n        message: \"La temperatura del salón ha pasado de 28 °C. Valor actual: {{ states('sensor.temperatura_salon') }}\"\n"
+  },
+  "c_ejemplo": {
+    "template": "horario",
+    "values": {
+      "alias": "Apagar la luz del jardín a medianoche",
+      "time": "00:00",
+      "weekdays": [],
+      "target": "light.jardin",
+      "service": "turn_off",
+      "brightness": ""
+    },
+    "yaml": "alias: \"Apagar la luz del jardín a medianoche\"\ndescription: \"Apaga light.jardin a las 00:00. Generada con Domótica Fácil.\"\nmode: single\ntriggers:\n  - trigger: time\n    at: \"00:00:00\"\nactions:\n  - action: light.turn_off\n    target:\n      entity_id: light.jardin\n",
+    "listYaml": "- id: \"caso_c_ejemplo\"\n  alias: \"Apagar la luz del jardín a medianoche\"\n  description: \"Apaga light.jardin a las 00:00. Generada con Domótica Fácil.\"\n  mode: single\n  triggers:\n    - trigger: time\n      at: \"00:00:00\"\n  actions:\n    - action: light.turn_off\n      target:\n        entity_id: light.jardin\n"
+  },
+  "c_dias_encender": {
+    "template": "horario",
+    "values": {
+      "alias": "Encender lunes y viernes",
+      "time": "07:30",
+      "weekdays": [
+        "mon",
+        "fri"
+      ],
+      "target": "light.jardin",
+      "service": "turn_on",
+      "brightness": "80"
+    },
+    "yaml": "alias: \"Encender lunes y viernes\"\ndescription: \"Enciende light.jardin a las 07:30. Generada con Domótica Fácil.\"\nmode: single\ntriggers:\n  - trigger: time\n    at: \"07:30:00\"\n    weekday:\n      - mon\n      - fri\nactions:\n  - action: light.turn_on\n    target:\n      entity_id: light.jardin\n    data:\n      brightness_pct: 80\n",
+    "listYaml": "- id: \"caso_c_dias_encender\"\n  alias: \"Encender lunes y viernes\"\n  description: \"Enciende light.jardin a las 07:30. Generada con Domótica Fácil.\"\n  mode: single\n  triggers:\n    - trigger: time\n      at: \"07:30:00\"\n      weekday:\n        - mon\n        - fri\n  actions:\n    - action: light.turn_on\n      target:\n        entity_id: light.jardin\n      data:\n        brightness_pct: 80\n"
+  }
+}

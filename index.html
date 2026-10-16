@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Domótica Fácil: generador de automatizaciones para Home Assistant</title>
+<meta name="description" content="Generador gratuito de automatizaciones para Home Assistant en español: luz con sensor de movimiento, avisos por umbral y acciones a una hora. YAML con la sintaxis actual, explicado y listo para pegar.">
+<link rel="canonical" href="https://domotica-facil.pages.dev/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_ES">
+<meta property="og:site_name" content="Domótica Fácil">
+<meta property="og:title" content="Domótica Fácil: generador de automatizaciones para Home Assistant">
+<meta property="og:description" content="Generador gratuito de automatizaciones para Home Assistant en español: luz con sensor de movimiento, avisos por umbral y acciones a una hora. YAML con la sintaxis actual, explicado y listo para pegar.">
+<meta property="og:url" content="https://domotica-facil.pages.dev/">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">Saltar al contenido</a>
+<header class="site-header">
+  <div class="wrap bar">
+    <a class="brand" href="./"><svg class="icon brand-mark" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 9.5V20h13V9.5"/><path d="M10 20v-5h4v5"/></svg><span>Domótica Fácil</span></a>
+    <nav class="nav" aria-label="Principal"><a href="" aria-current="page">Inicio</a><a href="generador/">Generador</a><a href="tutoriales/">Tutoriales</a><a href="sobre/">Sobre el proyecto</a><a href="contacto/">Contacto</a></nav>
+  </div>
+</header>
+<main id="main">
+<section class="hero">
+  <div class="wrap">
+    <h1>Automatizaciones de Home Assistant sin pelearte con el YAML</h1>
+    <p class="lead">Rellena un formulario con tus entidades y obtén una automatización lista para pegar, con la sintaxis actual, explicada paso a paso y con lo que necesitas tener configurado. Gratis y sin registrarte.</p>
+    <p class="actions"><a class="button primary" href="generador/">Abrir el generador<svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a><a class="button secondary" href="tutoriales/">Ver tutoriales</a></p>
+    <p class="privacy"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 19 6v5c0 4.5-3 8.4-7 10-4-1.6-7-5.5-7-10V6l7-3Z"/><path d="m9 12 2 2 4-4"/></svg><span>El generador funciona en tu navegador: no se envía ni se guarda nada de lo que escribes.</span></p>
+  </div>
+</section>
+<div class="wrap">
+  <section aria-labelledby="t-plantillas">
+    <h2 id="t-plantillas">Qué puedes generar</h2>
+    <ul class="cards">
+      <li class="card">
+        <span class="tag">Plantilla A</span>
+        <h3><a href="generador/?plantilla=movimiento">Luz con sensor de movimiento</a></h3>
+        <p>Enciende una luz al detectar movimiento y la apaga cuando deja de haberlo.</p>
+      </li>
+      <li class="card">
+        <span class="tag">Plantilla B</span>
+        <h3><a href="generador/?plantilla=umbral">Aviso cuando un sensor pasa de un valor</a></h3>
+        <p>Envía un aviso cuando un sensor numérico supera (o baja de) un límite.</p>
+      </li>
+      <li class="card">
+        <span class="tag">Plantilla C</span>
+        <h3><a href="generador/?plantilla=horario">Encender o apagar a una hora</a></h3>
+        <p>Enciende o apaga una luz o un enchufe a una hora fija, todos los días o solo algunos.</p>
+      </li>
+    </ul>
+  </section>
+  <section aria-labelledby="t-por-que">
+    <h2 id="t-por-que">Por qué otro generador</h2>
+    <ul class="points">
+      <li><strong>Sintaxis vigente.</strong> Muchos ejemplos de foros usan <code>platform:</code> y <code>service:</code>. El generador usa la sintaxis actual (<code>trigger:</code>, <code>action:</code>) y cada plantilla se valida con Home Assistant 2026.10.</li>
+      <li><strong>Sin sorpresas.</strong> El código sale de plantillas fijas y revisadas, no de una IA: los mismos datos dan siempre el mismo resultado.</li>
+      <li><strong>Te dice lo que falta.</strong> Requisitos, integraciones necesarias, advertencias y enlaces a la documentación oficial de cada parte.</li>
+      <li><strong>En español y sin cuentas.</strong> Pensado para quien empieza, sin anuncios ni seguimiento.</li>
+    </ul>
+  </section>
+  <section aria-labelledby="t-tutoriales">
+    <h2 id="t-tutoriales">Tutoriales</h2>
+    <ul class="cards">
+    <li class="card">
+      <h3><a href="tutoriales/anadir-automatizacion-yaml-home-assistant/">Cómo añadir una automatización en YAML a Home Assistant</a></h3>
+      <p>Has encontrado o generado el YAML de una automatización y no sabes dónde pegarlo. Dos formas seguras, con sus errores típicos.</p>
+    </li>
+    <li class="card">
+      <h3><a href="tutoriales/luz-sensor-movimiento-home-assistant/">Luz con sensor de movimiento que se apaga sola en Home Assistant</a></h3>
+      <p>La automatización más pedida: encender con movimiento y apagar al rato. Por qué conviene el modo «restart» y qué falla a menudo.</p>
+    </li>
+    <li class="card">
+      <h3><a href="tutoriales/probar-automatizaciones-sin-dispositivos/">Probar automatizaciones de Home Assistant sin tener los dispositivos</a></h3>
+      <p>¿Aún no tienes el sensor o no quieres esperar a que haga calor? Simula los estados y mira la traza.</p>
+    </li>
+    </ul>
+  </section>
+</div>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <p>Domótica Fácil es un proyecto independiente y no está afiliado a Home Assistant ni a la Open Home Foundation. Revisa siempre el código antes de usarlo en tu instalación.</p>
+    <p class="meta">Revisado el 16/10/2026 · <a href="privacidad/">Privacidad</a> · <a href="contacto/">Contacto</a> · <a href="https://github.com/JorgePs135/domotica-facil">Código fuente</a></p>
+  </div>
+</footer>
+
+</body>
+</html>

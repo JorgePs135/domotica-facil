@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Generador de automatizaciones para Home Assistant | Domótica Fácil</title>
+<meta name="description" content="Crea automatizaciones de Home Assistant sin escribir YAML: luces con sensor de movimiento, avisos cuando un sensor supera un valor y acciones a una hora. Copia o descarga el código.">
+<link rel="canonical" href="https://domotica-facil.pages.dev/generador/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_ES">
+<meta property="og:site_name" content="Domótica Fácil">
+<meta property="og:title" content="Generador de automatizaciones para Home Assistant | Domótica Fácil">
+<meta property="og:description" content="Crea automatizaciones de Home Assistant sin escribir YAML: luces con sensor de movimiento, avisos cuando un sensor supera un valor y acciones a una hora. Copia o descarga el código.">
+<meta property="og:url" content="https://domotica-facil.pages.dev/generador/">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<a class="skip" href="#main">Saltar al contenido</a>
+<header class="site-header">
+  <div class="wrap bar">
+    <a class="brand" href="../"><svg class="icon brand-mark" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 9.5V20h13V9.5"/><path d="M10 20v-5h4v5"/></svg><span>Domótica Fácil</span></a>
+    <nav class="nav" aria-label="Principal"><a href="../">Inicio</a><a href="../generador/" aria-current="page">Generador</a><a href="../tutoriales/">Tutoriales</a><a href="../sobre/">Sobre el proyecto</a><a href="../contacto/">Contacto</a></nav>
+  </div>
+</header>
+<main id="main">
+<div class="wrap">
+  <section class="intro">
+    <h1>Generador de automatizaciones para Home Assistant</h1>
+    <p class="lead">Elige una plantilla, escribe tus entidades y copia el YAML. Debajo del código tienes qué hace, qué necesitas y cómo añadirlo.</p>
+  </section>
+  <div id="generator" class="generator">
+    <div class="gen-input">
+      <fieldset class="chooser">
+        <legend>1. Elige una plantilla</legend>
+      <label class="choice"><input type="radio" name="template" value="movimiento" checked><span><strong>A. Luz con sensor de movimiento</strong><small>Enciende una luz al detectar movimiento y la apaga cuando deja de haberlo.</small></span></label>
+      <label class="choice"><input type="radio" name="template" value="umbral"><span><strong>B. Aviso cuando un sensor pasa de un valor</strong><small>Envía un aviso cuando un sensor numérico supera (o baja de) un límite.</small></span></label>
+      <label class="choice"><input type="radio" name="template" value="horario"><span><strong>C. Encender o apagar a una hora</strong><small>Enciende o apaga una luz o un enchufe a una hora fija, todos los días o solo algunos.</small></span></label>
+      </fieldset>
+      <h2 class="step-title">2. Rellena tus datos</h2>
+      
+    <form class="tpl-form panel" id="form-movimiento" novalidate aria-label="Datos de la plantilla A">
+      <div class="field" data-field="alias"><label for="f-movimiento-alias">Nombre de la automatización <span class="req" aria-hidden="true">*</span></label><input type="text" autocomplete="off" maxlength="100" id="f-movimiento-alias" name="alias" aria-describedby="err-movimiento-alias" required value="Luz del pasillo por movimiento"><span class="error" id="err-movimiento-alias" aria-live="polite"></span></div>
+      <div class="field" data-field="sensor"><label for="f-movimiento-sensor">Sensor de movimiento <span class="req" aria-hidden="true">*</span></label><input type="text" spellcheck="false" autocapitalize="off" autocomplete="off" class="mono" id="f-movimiento-sensor" name="sensor" aria-describedby="err-movimiento-sensor h-f-movimiento-sensor" required placeholder="binary_sensor.movimiento_pasillo"><span class="help" id="h-f-movimiento-sensor">Entidad que pasa a «on» al detectar movimiento.</span><span class="error" id="err-movimiento-sensor" aria-live="polite"></span></div>
+      <div class="field" data-field="target"><label for="f-movimiento-target">Luz o enchufe que se enciende <span class="req" aria-hidden="true">*</span></label><input type="text" spellcheck="false" autocapitalize="off" autocomplete="off" class="mono" id="f-movimiento-target" name="target" aria-describedby="err-movimiento-target h-f-movimiento-target" required placeholder="light.pasillo"><span class="help" id="h-f-movimiento-target">Una entidad light.… o switch.…</span><span class="error" id="err-movimiento-target" aria-live="polite"></span></div>
+      <div class="field" data-field="minutes"><label for="f-movimiento-minutes">Minutos sin movimiento antes de apagar <span class="req" aria-hidden="true">*</span></label><input type="text" inputmode="decimal" autocomplete="off" id="f-movimiento-minutes" name="minutes" aria-describedby="err-movimiento-minutes h-f-movimiento-minutes" required value="2"><span class="help" id="h-f-movimiento-minutes">Cuenta desde que el sensor vuelve a «off». 0 = apagar en cuanto el sensor deje de detectar.</span><span class="error" id="err-movimiento-minutes" aria-live="polite"></span></div>
+      <div class="field" data-field="brightness"><label for="f-movimiento-brightness">Brillo al encender (%)</label><input type="text" inputmode="decimal" autocomplete="off" id="f-movimiento-brightness" name="brightness" aria-describedby="err-movimiento-brightness h-f-movimiento-brightness" placeholder="opcional"><span class="help" id="h-f-movimiento-brightness">Solo para entidades light.… Vacío = el brillo que tenga la luz.</span><span class="error" id="err-movimiento-brightness" aria-live="polite"></span></div>
+      <div class="field check" data-field="onlyDark"><input type="checkbox" id="f-movimiento-onlyDark" name="onlyDark" aria-describedby="err-movimiento-onlyDark"><label for="f-movimiento-onlyDark">Solo cuando sea de noche (el sol bajo el horizonte)</label><span class="error" id="err-movimiento-onlyDark" aria-live="polite"></span></div>
+      <p class="req-note"><span aria-hidden="true">*</span> Obligatorio. Las entidades se copian de Herramientas para desarrolladores → Estados.</p>
+      <div class="row">
+        <button type="submit" class="primary">Generar YAML</button>
+        <button type="button" class="secondary" data-action="example">Cargar ejemplo</button>
+        <button type="button" class="ghost" data-action="reset">Vaciar</button>
+      </div>
+    </form>
+    <form class="tpl-form panel" id="form-umbral" novalidate hidden aria-label="Datos de la plantilla B">
+      <div class="field" data-field="alias"><label for="f-umbral-alias">Nombre de la automatización <span class="req" aria-hidden="true">*</span></label><input type="text" autocomplete="off" maxlength="100" id="f-umbral-alias" name="alias" aria-describedby="err-umbral-alias" required value="Aviso de temperatura alta"><span class="error" id="err-umbral-alias" aria-live="polite"></span></div>
+      <div class="field" data-field="sensor"><label for="f-umbral-sensor">Sensor numérico <span class="req" aria-hidden="true">*</span></label><input type="text" spellcheck="false" autocapitalize="off" autocomplete="off" class="mono" id="f-umbral-sensor" name="sensor" aria-describedby="err-umbral-sensor h-f-umbral-sensor" required placeholder="sensor.temperatura_salon"><span class="help" id="h-f-umbral-sensor">Un sensor.… cuyo estado sea un número (temperatura, humedad, consumo…).</span><span class="error" id="err-umbral-sensor" aria-live="polite"></span></div>
+      <div class="field" data-field="direction"><label for="f-umbral-direction">Avisar cuando el valor <span class="req" aria-hidden="true">*</span></label><select id="f-umbral-direction" name="direction" aria-describedby="err-umbral-direction" required><option value="above" selected>supere el límite</option><option value="below">baje del límite</option></select><span class="error" id="err-umbral-direction" aria-live="polite"></span></div>
+      <div class="field" data-field="threshold"><label for="f-umbral-threshold">Límite <span class="req" aria-hidden="true">*</span></label><input type="text" inputmode="decimal" autocomplete="off" id="f-umbral-threshold" name="threshold" aria-describedby="err-umbral-threshold h-f-umbral-threshold" required placeholder="28"><span class="help" id="h-f-umbral-threshold">En la misma unidad que el sensor. Admite decimales (28.5).</span><span class="error" id="err-umbral-threshold" aria-live="polite"></span></div>
+      <div class="field" data-field="forMinutes"><label for="f-umbral-forMinutes">Minutos que debe mantenerse pasado el límite</label><input type="text" inputmode="decimal" autocomplete="off" id="f-umbral-forMinutes" name="forMinutes" aria-describedby="err-umbral-forMinutes h-f-umbral-forMinutes" placeholder="opcional"><span class="help" id="h-f-umbral-forMinutes">Evita avisos por picos breves. Vacío o 0 = avisar al momento.</span><span class="error" id="err-umbral-forMinutes" aria-live="polite"></span></div>
+      <div class="field" data-field="method"><label for="f-umbral-method">Cómo avisar <span class="req" aria-hidden="true">*</span></label><select id="f-umbral-method" name="method" aria-describedby="err-umbral-method" required><option value="persistent" selected>Notificación dentro de Home Assistant (no necesita nada más)</option><option value="mobile">Notificación en el móvil (app Home Assistant)</option></select><span class="error" id="err-umbral-method" aria-live="polite"></span></div>
+      <div class="field" data-field="notifyEntity" hidden><label for="f-umbral-notifyEntity">Entidad de notificación del móvil</label><input type="text" spellcheck="false" autocapitalize="off" autocomplete="off" class="mono" id="f-umbral-notifyEntity" name="notifyEntity" aria-describedby="err-umbral-notifyEntity h-f-umbral-notifyEntity" placeholder="notify.mobile_app_mi_movil"><span class="help" id="h-f-umbral-notifyEntity">Solo para el aviso al móvil. Búscala en Herramientas para desarrolladores → Estados filtrando por «notify.».</span><span class="error" id="err-umbral-notifyEntity" aria-live="polite"></span></div>
+      <div class="field" data-field="title"><label for="f-umbral-title">Título del aviso</label><input type="text" autocomplete="off" maxlength="80" id="f-umbral-title" name="title" aria-describedby="err-umbral-title" value="Aviso de Home Assistant"><span class="error" id="err-umbral-title" aria-live="polite"></span></div>
+      <div class="field" data-field="message"><label for="f-umbral-message">Mensaje <span class="req" aria-hidden="true">*</span></label><input type="text" autocomplete="off" maxlength="200" id="f-umbral-message" name="message" aria-describedby="err-umbral-message" required value="La temperatura del salón ha pasado del límite."><span class="error" id="err-umbral-message" aria-live="polite"></span></div>
+      <div class="field check" data-field="includeValue"><input type="checkbox" id="f-umbral-includeValue" name="includeValue" aria-describedby="err-umbral-includeValue" checked><label for="f-umbral-includeValue">Añadir el valor actual del sensor al mensaje</label><span class="error" id="err-umbral-includeValue" aria-live="polite"></span></div>
+      <p class="req-note"><span aria-hidden="true">*</span> Obligatorio. Las entidades se copian de Herramientas para desarrolladores → Estados.</p>
+      <div class="row">
+        <button type="submit" class="primary">Generar YAML</button>
+        <button type="button" class="secondary" data-action="example">Cargar ejemplo</button>
+        <button type="button" class="ghost" data-action="reset">Vaciar</button>
+      </div>
+    </form>
+    <form class="tpl-form panel" id="form-horario" novalidate hidden aria-label="Datos de la plantilla C">
+      <div class="field" data-field="alias"><label for="f-horario-alias">Nombre de la automatización <span class="req" aria-hidden="true">*</span></label><input type="text" autocomplete="off" maxlength="100" id="f-horario-alias" name="alias" aria-describedby="err-horario-alias" required value="Apagar la luz del jardín a medianoche"><span class="error" id="err-horario-alias" aria-live="polite"></span></div>
+      <div class="field" data-field="time"><label for="f-horario-time">Hora <span class="req" aria-hidden="true">*</span></label><input type="time" id="f-horario-time" name="time" aria-describedby="err-horario-time" required value="00:00"><span class="error" id="err-horario-time" aria-live="polite"></span></div>
+      <fieldset class="field" data-field="weekdays" aria-describedby="h-f-horario-weekdays"><legend>Días</legend><div class="days"><label class="day"><input type="checkbox" name="weekdays" value="mon"><span aria-hidden="true">L</span><span class="sr-only">lunes</span></label><label class="day"><input type="checkbox" name="weekdays" value="tue"><span aria-hidden="true">M</span><span class="sr-only">martes</span></label><label class="day"><input type="checkbox" name="weekdays" value="wed"><span aria-hidden="true">X</span><span class="sr-only">miércoles</span></label><label class="day"><input type="checkbox" name="weekdays" value="thu"><span aria-hidden="true">J</span><span class="sr-only">jueves</span></label><label class="day"><input type="checkbox" name="weekdays" value="fri"><span aria-hidden="true">V</span><span class="sr-only">viernes</span></label><label class="day"><input type="checkbox" name="weekdays" value="sat"><span aria-hidden="true">S</span><span class="sr-only">sábado</span></label><label class="day"><input type="checkbox" name="weekdays" value="sun"><span aria-hidden="true">D</span><span class="sr-only">domingo</span></label></div><span class="help" id="h-f-horario-weekdays">Si no marcas ninguno, se ejecuta todos los días.</span><span class="error" id="err-horario-weekdays" aria-live="polite"></span></fieldset>
+      <div class="field" data-field="target"><label for="f-horario-target">Luz o enchufe <span class="req" aria-hidden="true">*</span></label><input type="text" spellcheck="false" autocapitalize="off" autocomplete="off" class="mono" id="f-horario-target" name="target" aria-describedby="err-horario-target" required placeholder="light.jardin"><span class="error" id="err-horario-target" aria-live="polite"></span></div>
+      <div class="field" data-field="service"><label for="f-horario-service">Acción <span class="req" aria-hidden="true">*</span></label><select id="f-horario-service" name="service" aria-describedby="err-horario-service" required><option value="turn_on">Encender</option><option value="turn_off" selected>Apagar</option></select><span class="error" id="err-horario-service" aria-live="polite"></span></div>
+      <div class="field" data-field="brightness" hidden><label for="f-horario-brightness">Brillo al encender (%)</label><input type="text" inputmode="decimal" autocomplete="off" id="f-horario-brightness" name="brightness" aria-describedby="err-horario-brightness h-f-horario-brightness" placeholder="opcional"><span class="help" id="h-f-horario-brightness">Solo al encender una entidad light.…</span><span class="error" id="err-horario-brightness" aria-live="polite"></span></div>
+      <p class="req-note"><span aria-hidden="true">*</span> Obligatorio. Las entidades se copian de Herramientas para desarrolladores → Estados.</p>
+      <div class="row">
+        <button type="submit" class="primary">Generar YAML</button>
+        <button type="button" class="secondary" data-action="example">Cargar ejemplo</button>
+        <button type="button" class="ghost" data-action="reset">Vaciar</button>
+      </div>
+    </form>
+    </div>
+    <section id="output" class="gen-output panel" tabindex="-1" aria-labelledby="out-h">
+      <h2 id="out-h" class="step-title">3. Tu automatización</h2>
+      <p id="out-title" class="muted"></p>
+      <fieldset class="format">
+        <legend>Formato</legend>
+        <label><input type="radio" name="format" value="editor" checked> Editor de Home Assistant (recomendado)</label>
+        <label><input type="radio" name="format" value="archivo"> Archivo YAML propio (avanzado)</label>
+      </fieldset>
+      <div id="out-pending" class="pending" role="status">
+        <p>Completa o corrige estos campos para ver el código:</p>
+        <ul id="pending-list"></ul>
+      </div>
+      <div id="out-ok" hidden>
+        <pre class="code" tabindex="0" aria-label="Código YAML generado"><code id="yaml"></code></pre>
+      </div>
+      <div class="row">
+        <button id="copy" type="button" class="primary" disabled><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h8"/></svg>Copiar</button>
+        <button id="download" type="button" class="secondary" disabled><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"/><path d="m7 10 5 5 5-5"/><path d="M5 20h14"/></svg>Descargar .yaml</button>
+        <span id="action-status" class="muted" role="status"></span>
+      </div>
+    </section>
+  </div>
+  <section class="howto" aria-labelledby="t-explica">
+    <h2 id="t-explica">Qué hace</h2>
+    <p id="summary" class="muted">Rellena el formulario para ver la explicación.</p>
+    <div class="cols">
+      <div data-hide-empty hidden><h3>Lo que necesitas tener</h3><ul id="requirements"></ul></div>
+      <div data-hide-empty hidden><h3>Advertencias</h3><ul id="warnings" class="warn"></ul></div>
+    </div>
+    <h2>Cómo añadirla a Home Assistant</h2>
+    <ol class="steps-list" data-format="editor">
+      <li>Ve a <strong>Ajustes → Automatizaciones y escenas → Crear automatización → Crear nueva automatización</strong>.</li>
+      <li>En el menú <strong>⋮</strong> elige <strong>Editar en YAML</strong>, borra el contenido y pega el código.</li>
+      <li>Pulsa <strong>Guardar</strong>. Para probarla sin esperar al disparador: <strong>⋮ → Ejecutar acciones</strong>; para ver qué ha pasado: <strong>⋮ → Trazas</strong>.</li>
+    </ol>
+    <ol class="steps-list" data-format="archivo" hidden>
+      <li>Guarda el código como <code>automatizaciones_domotica_facil.yaml</code> junto a <code>configuration.yaml</code>. Si ya tienes ese archivo, añade la automatización al final.</li>
+      <li>Añade a <code>configuration.yaml</code> la línea <code>automation domotica_facil: !include automatizaciones_domotica_facil.yaml</code>, sin borrar la de <code>automations.yaml</code>.</li>
+      <li><strong>Herramientas para desarrolladores → YAML → Comprobar configuración</strong>. La primera vez reinicia; después basta con recargar las automatizaciones.</li>
+    </ol>
+    <p>Guía detallada, con errores frecuentes: <a href="../tutoriales/anadir-automatizacion-yaml-home-assistant/">Cómo añadir una automatización en YAML</a>.</p>
+    <div data-hide-empty hidden><h3>Documentación oficial</h3><ul id="docs"></ul></div>
+    <p class="note">Validación: el YAML de cada plantilla se ha comprobado con el validador de configuración de Home Assistant 2026.10 y su comportamiento se ha simulado con entidades ficticias. No se ha probado con dispositivos físicos. Revisa siempre el código antes de usarlo.</p>
+  </section>
+  <section aria-labelledby="t-ejemplos">
+    <h2 id="t-ejemplos">Ejemplos</h2>
+    <dl class="params">
+      <dt>A. Luz con sensor de movimiento</dt><dd>Con binary_sensor.movimiento_pasillo y light.pasillo, 2 min y brillo 60 %: enciende al detectar movimiento de noche y apaga 2 min después de que el sensor vuelva a «off». <a href="?plantilla=movimiento">Abrir la plantilla</a> y pulsar «Cargar ejemplo».</dd>
+      <dt>B. Aviso cuando un sensor pasa de un valor</dt><dd>Con sensor.temperatura_salon por encima de 28 durante 10 min: crea una notificación en Home Assistant con el valor actual. <a href="?plantilla=umbral">Abrir la plantilla</a> y pulsar «Cargar ejemplo».</dd>
+      <dt>C. Encender o apagar a una hora</dt><dd>Con light.jardin a las 00:00: la apaga todos los días a medianoche. <a href="?plantilla=horario">Abrir la plantilla</a> y pulsar «Cargar ejemplo».</dd>
+    </dl>
+  </section>
+</div>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <p>Domótica Fácil es un proyecto independiente y no está afiliado a Home Assistant ni a la Open Home Foundation. Revisa siempre el código antes de usarlo en tu instalación.</p>
+    <p class="meta">Revisado el 16/10/2026 · <a href="../privacidad/">Privacidad</a> · <a href="../contacto/">Contacto</a> · <a href="https://github.com/JorgePs135/domotica-facil">Código fuente</a></p>
+  </div>
+</footer>
+<script type="module" src="../src/app.js"></script>
+</body>
+</html>

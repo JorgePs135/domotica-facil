@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Probar automatizaciones de Home Assistant sin tener los dispositivos | Domótica Fácil</title>
+<meta name="description" content="Tres formas de comprobar una automatización de Home Assistant sin sensores ni luces reales: cambiar estados a mano, crear ayudantes y usar la integración demo.">
+<link rel="canonical" href="https://domotica-facil.pages.dev/tutoriales/probar-automatizaciones-sin-dispositivos/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_ES">
+<meta property="og:site_name" content="Domótica Fácil">
+<meta property="og:title" content="Probar automatizaciones de Home Assistant sin tener los dispositivos | Domótica Fácil">
+<meta property="og:description" content="Tres formas de comprobar una automatización de Home Assistant sin sensores ni luces reales: cambiar estados a mano, crear ayudantes y usar la integración demo.">
+<meta property="og:url" content="https://domotica-facil.pages.dev/tutoriales/probar-automatizaciones-sin-dispositivos/">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+<a class="skip" href="#main">Saltar al contenido</a>
+<header class="site-header">
+  <div class="wrap bar">
+    <a class="brand" href="../../"><svg class="icon brand-mark" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 9.5V20h13V9.5"/><path d="M10 20v-5h4v5"/></svg><span>Domótica Fácil</span></a>
+    <nav class="nav" aria-label="Principal"><a href="../../">Inicio</a><a href="../../generador/">Generador</a><a href="../../tutoriales/" aria-current="page">Tutoriales</a><a href="../../sobre/">Sobre el proyecto</a><a href="../../contacto/">Contacto</a></nav>
+  </div>
+</header>
+<main id="main">
+<div class="wrap">
+  <article class="article">
+    <p class="crumbs"><a href="../../tutoriales/">Tutoriales</a></p>
+    <h1>Probar automatizaciones de Home Assistant sin tener los dispositivos</h1>
+    <p class="meta">Revisado el 16/10/2026 · Home Assistant 2026.10</p>
+    <p class="note verify">El YAML de esta página se ha validado con el comprobador de configuración de Home Assistant y su comportamiento se ha simulado con entidades ficticias en Home Assistant 2026.10. No se ha probado con dispositivos físicos.</p>
+    
+<h2>El problema</h2>
+<p>Has escrito una automatización, pero el sensor aún no ha llegado, o esperas a que la temperatura pase de 28 °C para saber si avisa. Home Assistant permite simular los estados de las entidades para comprobar la lógica sin tocar ningún aparato.</p>
+<p class="note">Una simulación comprueba que la automatización reacciona como esperas a los cambios de estado. No comprueba el dispositivo: cuánto tarda en informar, si pierde cobertura o si su estado es un número o un texto. Cuando tengas el aparato, repite la prueba con él.</p>
+
+<h2>Requisitos</h2>
+<ul>
+  <li>Una instalación de Home Assistant con usuario administrador. Puede ser una de pruebas.</li>
+  <li>La automatización ya añadida (ver <a href="../anadir-automatizacion-yaml-home-assistant/">Cómo añadir una automatización en YAML</a>).</li>
+</ul>
+
+<h2>Método 1: cambiar el estado a mano</h2>
+<p>Lo más rápido para disparadores de estado y numéricos.</p>
+<ol class="steps-list">
+  <li>Abre <strong>Herramientas para desarrolladores → Estados</strong>.</li>
+  <li>Elige la entidad (por ejemplo <code>sensor.temperatura_salon</code>), escribe el nuevo estado (<code>30</code>) y pulsa <strong>Establecer estado</strong>.</li>
+  <li>Mira la traza de la automatización.</li>
+</ol>
+<p>Esto solo cambia lo que Home Assistant cree que vale la entidad; no envía nada al dispositivo. En cuanto el dispositivo real informe, su valor sustituirá al tuyo. Para un disparador numérico, recuerda que se dispara al <strong>cruzar</strong> el límite: pon primero un valor por debajo (25) y luego uno por encima (30).</p>
+
+<h2>Método 2: ayudantes que hacen de sensor</h2>
+<p>Si el dispositivo aún no existe, crea entidades de prueba en <strong>Ajustes → Dispositivos y servicios → Ayudantes → Crear ayudante</strong>:</p>
+<ul>
+  <li>Un <strong>interruptor</strong> (<code>input_boolean</code>) para simular movimiento: <code>input_boolean.movimiento_prueba</code>.</li>
+  <li>Un <strong>número</strong> (<code>input_number</code>) para simular un valor: <code>input_number.temperatura_prueba</code>, con mínimo 0 y máximo 40.</li>
+</ul>
+<p>Los ayudantes tienen otro dominio (<code>input_boolean</code> en lugar de <code>binary_sensor</code>), así que el generador no los acepta como sensor. Para probar, cambia temporalmente el <code>entity_id</code> del disparador en el YAML. Por ejemplo, la plantilla de aviso apuntando al número de prueba:</p>
+<pre class="code"><code class="language-yaml">alias: &quot;Aviso de temperatura alta&quot;
+description: &quot;Avisa cuando input_number.temperatura_prueba supera 28. Generada con Domótica Fácil.&quot;
+mode: single
+triggers:
+  - trigger: numeric_state
+    entity_id: input_number.temperatura_prueba
+    above: 28
+    for:
+      minutes: 10
+actions:
+  - action: persistent_notification.create
+    data:
+      title: &quot;Aviso de Home Assistant&quot;
+      message: &quot;La temperatura del salón ha pasado de 28 °C. Valor actual: {{ states('input_number.temperatura_prueba') }}&quot;</code></pre>
+<p>Mueve el control deslizante del ayudante por encima de 28 y espera los minutos indicados (o pon <code>for</code> a 0 para la prueba). Cuando llegue el sensor de verdad, vuelve a poner su <code>entity_id</code>.</p>
+
+<h2>Método 3: la integración demo</h2>
+<p>Home Assistant incluye una integración <strong>demo</strong> que crea luces, interruptores y sensores ficticios. Úsala solo en una instalación de pruebas, porque llena la tuya de entidades. Se activa añadiendo a <code>configuration.yaml</code>:</p>
+<pre class="code"><code class="language-yaml">demo:</code></pre>
+<p>Tras reiniciar, busca en <strong>Estados</strong> las entidades nuevas (luces, sensores) y úsalas como destino de tus automatizaciones para ver cómo cambian.</p>
+<p class="note">Este método lo hemos comprobado leyendo el código de Home Assistant 2026.10 (la integración acepta <code>demo:</code> y crea sensores binarios, luces, sensores e interruptores), pero no lo hemos ejecutado en una instalación.</p>
+
+<h2>Errores frecuentes</h2>
+<ul>
+  <li><strong>El disparador numérico no salta.</strong> El valor ya estaba por encima antes de guardar la automatización. Bájalo y vuelve a subirlo.</li>
+  <li><strong>El estado vuelve solo a su valor.</strong> El dispositivo real ha informado. Es normal: el método 1 dura hasta la siguiente actualización.</li>
+  <li><strong>La automatización con <code>for</code> no hace nada.</strong> Está contando. Si reinicias Home Assistant o recargas las automatizaciones mientras cuenta, la cuenta empieza de cero.</li>
+</ul>
+
+<h2>Cómo leer el resultado</h2>
+<p>En <strong>Ajustes → Automatizaciones y escenas</strong>, abre la automatización y pulsa <strong>⋮ → Trazas</strong>. Cada ejecución muestra el disparador, el resultado de cada condición y cada acción con su hora. Si no aparece ninguna traza, la automatización no se disparó: revisa el <code>entity_id</code> y los valores <code>from</code>/<code>to</code>.</p>
+
+<h2>Documentación oficial</h2>
+<ul>
+  <li><a href="https://www.home-assistant.io/docs/automation/troubleshooting/" rel="noopener">Depurar automatizaciones</a></li>
+  <li><a href="https://www.home-assistant.io/docs/tools/dev-tools/" rel="noopener">Herramientas para desarrolladores</a></li>
+  <li><a href="https://www.home-assistant.io/integrations/input_boolean/" rel="noopener">Input boolean</a> e <a href="https://www.home-assistant.io/integrations/input_number/" rel="noopener">Input number</a></li>
+  <li><a href="https://www.home-assistant.io/integrations/demo/" rel="noopener">Integración demo</a></li>
+</ul>
+    
+    <p class="cta"><a class="button primary" href="../../generador/">Abrir el generador<svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a></p>
+  </article>
+</div>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <p>Domótica Fácil es un proyecto independiente y no está afiliado a Home Assistant ni a la Open Home Foundation. Revisa siempre el código antes de usarlo en tu instalación.</p>
+    <p class="meta">Revisado el 16/10/2026 · <a href="../../privacidad/">Privacidad</a> · <a href="../../contacto/">Contacto</a> · <a href="https://github.com/JorgePs135/domotica-facil">Código fuente</a></p>
+  </div>
+</footer>
+
+</body>
+</html>

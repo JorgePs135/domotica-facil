@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cómo añadir una automatización en YAML a Home Assistant | Domótica Fácil</title>
+<meta name="description" content="Dónde pegar el YAML de una automatización en Home Assistant, cómo reconocer la sintaxis antigua y nueva, errores frecuentes y cómo comprobar que funciona.">
+<link rel="canonical" href="https://domotica-facil.pages.dev/tutoriales/anadir-automatizacion-yaml-home-assistant/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_ES">
+<meta property="og:site_name" content="Domótica Fácil">
+<meta property="og:title" content="Cómo añadir una automatización en YAML a Home Assistant | Domótica Fácil">
+<meta property="og:description" content="Dónde pegar el YAML de una automatización en Home Assistant, cómo reconocer la sintaxis antigua y nueva, errores frecuentes y cómo comprobar que funciona.">
+<meta property="og:url" content="https://domotica-facil.pages.dev/tutoriales/anadir-automatizacion-yaml-home-assistant/">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+<a class="skip" href="#main">Saltar al contenido</a>
+<header class="site-header">
+  <div class="wrap bar">
+    <a class="brand" href="../../"><svg class="icon brand-mark" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 9.5V20h13V9.5"/><path d="M10 20v-5h4v5"/></svg><span>Domótica Fácil</span></a>
+    <nav class="nav" aria-label="Principal"><a href="../../">Inicio</a><a href="../../generador/">Generador</a><a href="../../tutoriales/" aria-current="page">Tutoriales</a><a href="../../sobre/">Sobre el proyecto</a><a href="../../contacto/">Contacto</a></nav>
+  </div>
+</header>
+<main id="main">
+<div class="wrap">
+  <article class="article">
+    <p class="crumbs"><a href="../../tutoriales/">Tutoriales</a></p>
+    <h1>Cómo añadir una automatización en YAML a Home Assistant</h1>
+    <p class="meta">Revisado el 16/10/2026 · Home Assistant 2026.10</p>
+    <p class="note verify">Pasos revisados contra la documentación oficial de Home Assistant 2026.10. Los nombres de los menús pueden variar ligeramente entre versiones.</p>
+    
+<h2>El problema</h2>
+<p>En foros, vídeos y generadores encontrarás automatizaciones escritas en YAML. Si las pegas en el sitio equivocado o con la sangría mal, Home Assistant no las guarda o, peor, deja de cargar la configuración. Aquí tienes las dos formas seguras de añadirlas.</p>
+
+<h2>Antes de empezar</h2>
+<ul>
+  <li>Un usuario administrador de Home Assistant.</li>
+  <li>Las entidades que use la automatización ya integradas (las ves en <strong>Herramientas para desarrolladores → Estados</strong>).</li>
+  <li>Home Assistant 2024.10 o posterior si el YAML usa la sintaxis nueva (<code>triggers:</code>, <code>trigger: state</code>, <code>action:</code>). La sintaxis antigua sigue funcionando.</li>
+</ul>
+
+<h2>Opción 1 (recomendada): el editor de automatizaciones</h2>
+<ol class="steps-list">
+  <li>Ve a <strong>Ajustes → Automatizaciones y escenas</strong> y pulsa <strong>Crear automatización</strong>.</li>
+  <li>Elige <strong>Crear nueva automatización</strong> (empezar desde cero).</li>
+  <li>Abre el menú <strong>⋮</strong> de arriba a la derecha y elige <strong>Editar en YAML</strong>.</li>
+  <li>Borra todo lo que aparece y pega el YAML. Debe empezar por <code>alias:</code>, sin guion delante.</li>
+  <li>Pulsa <strong>Guardar</strong>. Si vuelves a <strong>⋮ → Editar en el editor visual</strong> verás la automatización en el editor de bloques: es una buena prueba de que se ha entendido.</li>
+</ol>
+<p>Home Assistant guarda la automatización en <code>automations.yaml</code> y le pone un <code>id</code> por su cuenta. La documentación oficial pide no editar ese archivo a mano porque lo gestiona la interfaz (<a href="https://www.home-assistant.io/docs/automation/yaml/" rel="noopener">Automatizaciones en YAML</a>).</p>
+
+<h2>Opción 2 (avanzada): un archivo YAML propio</h2>
+<p>Útil si guardas tu configuración en Git o quieres tener tus automatizaciones fuera de la interfaz. El generador lo ofrece como «Archivo YAML propio».</p>
+<ol class="steps-list">
+  <li>Crea, junto a <code>configuration.yaml</code>, un archivo <code>automatizaciones_domotica_facil.yaml</code> y pega dentro el YAML (en este formato cada automatización empieza por <code>- id:</code>).</li>
+  <li>Añade a <code>configuration.yaml</code> esta línea, sin borrar la que ya tengas de <code>automation: !include automations.yaml</code>:
+<pre class="code"><code class="language-yaml">automation domotica_facil: !include automatizaciones_domotica_facil.yaml</code></pre></li>
+  <li>Ve a <strong>Herramientas para desarrolladores → YAML</strong> y pulsa <strong>Comprobar configuración</strong>. Si no ves la opción, activa el <strong>Modo avanzado</strong> en tu perfil de usuario.</li>
+  <li>La primera vez, <strong>reinicia</strong> Home Assistant para que lea el nuevo <code>!include</code>. Después, cuando cambies solo el archivo, basta con <strong>Recargar automatizaciones</strong>.</li>
+</ol>
+<p>Las automatizaciones de un bloque con nombre propio (<code>automation domotica_facil:</code>) aparecen en la lista, pero no se pueden editar desde la interfaz: se cambian en el archivo.</p>
+
+<h2>Sintaxis antigua y nueva</h2>
+<p>Desde Home Assistant 2024.8 y 2024.10 cambiaron algunos nombres. Las dos formas funcionan, pero <strong>no se pueden mezclar en el mismo nivel</strong>.</p>
+<div class="table-wrap"><table>
+  <thead><tr><th>Antes</th><th>Ahora</th></tr></thead>
+  <tbody>
+    <tr><td><code>trigger:</code> (lista principal)</td><td><code>triggers:</code></td></tr>
+    <tr><td><code>condition:</code> (lista principal)</td><td><code>conditions:</code></td></tr>
+    <tr><td><code>action:</code> (lista principal)</td><td><code>actions:</code></td></tr>
+    <tr><td><code>- platform: state</code></td><td><code>- trigger: state</code></td></tr>
+    <tr><td><code>- service: light.turn_on</code></td><td><code>- action: light.turn_on</code></td></tr>
+  </tbody>
+</table></div>
+
+<h2>Errores frecuentes</h2>
+<ul>
+  <li><strong>Sangría con tabuladores o desigual.</strong> YAML solo admite espacios. Pega el código tal cual y no lo reindentes a mano.</li>
+  <li><strong>Pegar una lista en el editor.</strong> Si el YAML empieza por <code>- id:</code> es para un archivo (opción 2). En el editor (opción 1) quita el guion y el <code>id</code>, o genera el formato «Editor de Home Assistant».</li>
+  <li><strong><code>on</code> y <code>off</code> sin comillas.</strong> En YAML, <code>to: on</code> sin comillas puede leerse como verdadero/falso y no como el estado «on». Escribe <code>to: "on"</code>.</li>
+  <li><strong>Entidades que no existen.</strong> Home Assistant guarda la automatización, pero no hará nada. Copia el ID exacto desde <strong>Estados</strong>.</li>
+  <li><strong>Mezclar <code>service:</code> y <code>action:</code></strong> o <code>platform:</code> y <code>trigger:</code> dentro del mismo bloque.</li>
+</ul>
+
+<h2>Cómo comprobar que funciona</h2>
+<ol class="steps-list">
+  <li>En la lista de automatizaciones, abre la tuya y usa <strong>⋮ → Ejecutar acciones</strong>: ejecuta las acciones sin esperar al disparador ni mirar las condiciones. Sirve para comprobar que las entidades responden.</li>
+  <li>Provoca el disparador de verdad (o simúlalo, como se explica en <a href="../probar-automatizaciones-sin-dispositivos/">Probar automatizaciones sin dispositivos</a>).</li>
+  <li>Abre <strong>⋮ → Trazas</strong>: verás qué disparó la automatización, qué condiciones pasaron y en qué paso se paró (<a href="https://www.home-assistant.io/docs/automation/troubleshooting/" rel="noopener">Depurar automatizaciones</a>).</li>
+</ol>
+
+<h2>Documentación oficial</h2>
+<ul>
+  <li><a href="https://www.home-assistant.io/docs/automation/yaml/" rel="noopener">Automatizaciones en YAML</a></li>
+  <li><a href="https://www.home-assistant.io/docs/automation/editor/" rel="noopener">Editor de automatizaciones</a></li>
+  <li><a href="https://www.home-assistant.io/docs/automation/troubleshooting/" rel="noopener">Depurar automatizaciones</a></li>
+</ul>
+    
+    <p class="cta"><a class="button primary" href="../../generador/">Abrir el generador<svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a></p>
+  </article>
+</div>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <p>Domótica Fácil es un proyecto independiente y no está afiliado a Home Assistant ni a la Open Home Foundation. Revisa siempre el código antes de usarlo en tu instalación.</p>
+    <p class="meta">Revisado el 16/10/2026 · <a href="../../privacidad/">Privacidad</a> · <a href="../../contacto/">Contacto</a> · <a href="https://github.com/JorgePs135/domotica-facil">Código fuente</a></p>
+  </div>
+</footer>
+
+</body>
+</html>
