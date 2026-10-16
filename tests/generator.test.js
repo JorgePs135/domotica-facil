@@ -138,3 +138,14 @@ test('cada plantilla genera con su ejemplo y tiene documentación y requisitos',
     assert.doesNotMatch(r.yaml, /\t|platform:|service:/, `${id}: sin tabuladores ni sintaxis antigua`);
   }
 });
+
+test('el resaltado conserva el texto exacto y escapa el HTML', async () => {
+  const { highlightYaml } = await import('../src/highlight.js');
+  const unhtml = (h) => h.replace(/<[^>]+>/g, '').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&amp;/g, '&');
+  for (const id of Object.keys(TEMPLATES)) {
+    const r = generate(id, TEMPLATES[id].example, { id: 'x' });
+    for (const y of [r.yaml, r.listYaml]) assert.equal(unhtml(highlightYaml(y)), y, id);
+  }
+  const evil = generate('movimiento', { ...TEMPLATES.movimiento.example, alias: '<img src=x onerror=alert(1)>' }).yaml;
+  assert.doesNotMatch(highlightYaml(evil), /<img/);
+});

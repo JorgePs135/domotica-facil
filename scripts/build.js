@@ -4,7 +4,8 @@ import { mkdirSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { SITE } from '../src/config.js';
-import { TEMPLATES, WEEKDAYS } from '../src/generator.js';
+import { TEMPLATES, WEEKDAYS, generate } from '../src/generator.js';
+import { highlightYaml } from '../src/highlight.js';
 import { TUTORIALS, VERIFICATION } from '../src/content.js';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
@@ -18,6 +19,11 @@ const ICON = {
   download: '<path d="M12 4v11"/><path d="m7 10 5 5 5-5"/><path d="M5 20h14"/>',
   shield: '<path d="M12 3 19 6v5c0 4.5-3 8.4-7 10-4-1.6-7-5.5-7-10V6l7-3Z"/><path d="m9 12 2 2 4-4"/>',
   external: '<path d="M7 17 17 7"/><path d="M9 7h8v8"/>',
+  movimiento: '<circle cx="12" cy="12" r="2"/><path d="M8.5 8.5a5 5 0 0 0 0 7"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M5.6 5.6a9 9 0 0 0 0 12.8"/><path d="M18.4 5.6a9 9 0 0 1 0 12.8"/>',
+  umbral: '<path d="M14 14.8V5a2 2 0 0 0-4 0v9.8a4 4 0 1 0 4 0Z"/><path d="M12 9v7"/>',
+  horario: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+  form: '<rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 9h8M8 13h8M8 17h5"/>',
+  book: '<path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2V5Z"/><path d="M4 19a2 2 0 0 1 2-2h13"/>',
 };
 const svg = (name, cls = 'icon') =>
   `<svg class="${cls}" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">${ICON[name]}</svg>`;
@@ -28,7 +34,7 @@ function layout({ path, title, description, body, scripts = '', noindex = false 
   const base = path.endsWith('.html') ? '' : '../'.repeat(path.split('/').filter(Boolean).length);
   const fullTitle = path === '' ? title : `${title} | ${SITE.name}`;
   const nav = NAV.map(([p, label]) =>
-    `<a href="${base}${p}"${p === path || (p && path.startsWith(p)) ? ' aria-current="page"' : ''}>${label}</a>`).join('');
+    `<a href="${base}${p}"${p === 'generador/' ? ' class="nav-cta"' : ''}${p === path || (p && path.startsWith(p)) ? ' aria-current="page"' : ''}>${label}</a>`).join('');
   return `<!doctype html>
 <html lang="es">
 <head>
@@ -71,27 +77,49 @@ ${scripts}
 }
 
 const tutorialCards = (base) => TUTORIALS.map((t) => `
-    <li class="card">
+    <li class="card link-card">
+      <span class="card-icon">${svg('book')}</span>
       <h3><a href="${base}tutoriales/${t.slug}/">${esc(t.title)}</a></h3>
       <p>${esc(t.summary)}</p>
     </li>`).join('');
 
 function home() {
   const tpls = Object.entries(TEMPLATES).map(([id, t]) => `
-      <li class="card">
+      <li class="card link-card">
+        <span class="card-icon">${svg(id)}</span>
         <span class="tag">Plantilla ${t.letter}</span>
         <h3><a href="generador/?plantilla=${id}">${esc(t.title)}</a></h3>
         <p>${esc(t.short)}</p>
       </li>`).join('');
+  const demo = generate('movimiento', { ...TEMPLATES.movimiento.example, onlyDark: false, brightness: '' }).yaml;
+  const steps = [
+    ['form', 'Elige y rellena', 'Escoge una plantilla y escribe tus entidades (las copias de Herramientas para desarrolladores → Estados).'],
+    ['copy', 'Copia el YAML', 'El código aparece al momento, con la sintaxis actual. Cópialo o descárgalo como archivo .yaml.'],
+    ['shield', 'Pégalo y compruébalo', 'Debajo del código tienes los pasos para añadirlo a Home Assistant y cómo ver si funciona.'],
+  ].map(([icon, title, text], n) => `
+      <li><span class="step-icon">${svg(icon)}</span><h3><span class="sr-only">Paso ${n + 1}: </span>${title}</h3><p>${text}</p></li>`).join('');
   const body = `<section class="hero">
-  <div class="wrap">
-    <h1>Automatizaciones de Home Assistant sin pelearte con el YAML</h1>
-    <p class="lead">Rellena un formulario con tus entidades y obtén una automatización lista para pegar, con la sintaxis actual, explicada paso a paso y con lo que necesitas tener configurado. Gratis y sin registrarte.</p>
-    <p class="actions"><a class="button primary" href="generador/">Abrir el generador${svg('arrow')}</a><a class="button secondary" href="tutoriales/">Ver tutoriales</a></p>
-    <p class="privacy">${svg('shield')}<span>El generador funciona en tu navegador: no se envía ni se guarda nada de lo que escribes.</span></p>
+  <div class="wrap hero-grid">
+    <div>
+      <p class="eyebrow">Gratis · en español · sin registro</p>
+      <h1>Automatizaciones de Home Assistant sin pelearte con el YAML</h1>
+      <p class="lead">Rellena un formulario con tus entidades y obtén una automatización lista para pegar, con la sintaxis actual, explicada paso a paso y con lo que necesitas tener configurado.</p>
+      <p class="actions"><a class="button primary big" href="generador/">Abrir el generador${svg('arrow')}</a><a class="button secondary big" href="tutoriales/">Ver tutoriales</a></p>
+      <p class="privacy">${svg('shield')}<span>Funciona en tu navegador: no se envía ni se guarda nada de lo que escribes.</span></p>
+    </div>
+    <figure class="demo">
+      <div class="demo-bar" aria-hidden="true"><span></span><span></span><span></span><code>luz_del_pasillo.yaml</code></div>
+      <pre class="code" tabindex="0" aria-label="Ejemplo de YAML generado"><code>${highlightYaml(demo.trimEnd())}</code></pre>
+      <figcaption>Resultado real de la plantilla A: <code>binary_sensor.movimiento_pasillo</code> enciende <code>light.pasillo</code> y la apaga 2 minutos después de que deje de haber movimiento.</figcaption>
+    </figure>
   </div>
 </section>
 <div class="wrap">
+  <section aria-labelledby="t-como">
+    <h2 id="t-como">Cómo funciona</h2>
+    <ol class="how">${steps}
+    </ol>
+  </section>
   <section aria-labelledby="t-plantillas">
     <h2 id="t-plantillas">Qué puedes generar</h2>
     <ul class="cards">${tpls}
@@ -110,6 +138,13 @@ function home() {
     <h2 id="t-tutoriales">Tutoriales</h2>
     <ul class="cards">${tutorialCards('')}
     </ul>
+  </section>
+  <section class="cta-band" aria-labelledby="t-falta">
+    <div>
+      <h2 id="t-falta">¿Echas en falta una plantilla?</h2>
+      <p>Las próximas se eligen según lo que pida la gente. Cuéntanos qué automatización te gustaría generar.</p>
+    </div>
+    <a class="button secondary" href="contacto/">Proponer una plantilla</a>
   </section>
 </div>`;
   return layout({ path: '', title: `${SITE.name}: generador de automatizaciones para Home Assistant`,
@@ -148,7 +183,7 @@ function fieldHtml(tpl, f) {
 
 function generator() {
   const chooser = Object.entries(TEMPLATES).map(([id, t], i) => `
-      <label class="choice"><input type="radio" name="template" value="${id}"${i === 0 ? ' checked' : ''}><span><strong>${t.letter}. ${esc(t.title)}</strong><small>${esc(t.short)}</small></span></label>`).join('');
+      <label class="choice"><input type="radio" name="template" value="${id}"${i === 0 ? ' checked' : ''}><span class="choice-icon">${svg(id)}</span><span><strong>${t.letter}. ${esc(t.title)}</strong><small>${esc(t.short)}</small></span></label>`).join('');
   const forms = Object.entries(TEMPLATES).map(([id, t], i) => `
     <form class="tpl-form panel" id="form-${id}" novalidate${i ? ' hidden' : ''} aria-label="Datos de la plantilla ${t.letter}">
       ${t.fields.map((f) => fieldHtml(id, f)).join('\n      ')}

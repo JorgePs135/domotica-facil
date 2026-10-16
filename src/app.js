@@ -1,5 +1,6 @@
 // Interfaz del generador. Todo ocurre en el navegador: no se envía nada a ningún servidor.
 import { TEMPLATES, generate } from './generator.js';
+import { highlightYaml } from './highlight.js';
 
 const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
@@ -73,7 +74,7 @@ function render({ showAll = false } = {}) {
     $('#yaml').textContent = '';
     return;
   }
-  $('#yaml').textContent = fmt() === 'archivo' ? result.listYaml : result.yaml;
+  $('#yaml').innerHTML = highlightYaml(fmt() === 'archivo' ? result.listYaml : result.yaml); // highlightYaml escapa el texto
   $('#summary').textContent = result.summary;
   list($('#requirements'), result.requirements, (li, t) => { li.textContent = t; });
   list($('#warnings'), result.warnings, (li, t) => { li.textContent = t; });

@@ -21,7 +21,7 @@
 <header class="site-header">
   <div class="wrap bar">
     <a class="brand" href="../../"><svg class="icon brand-mark" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 9.5V20h13V9.5"/><path d="M10 20v-5h4v5"/></svg><span>Domótica Fácil</span></a>
-    <nav class="nav" aria-label="Principal"><a href="../../">Inicio</a><a href="../../generador/">Generador</a><a href="../../tutoriales/" aria-current="page">Tutoriales</a><a href="../../sobre/">Sobre el proyecto</a><a href="../../contacto/">Contacto</a></nav>
+    <nav class="nav" aria-label="Principal"><a href="../../">Inicio</a><a href="../../generador/" class="nav-cta">Generador</a><a href="../../tutoriales/" aria-current="page">Tutoriales</a><a href="../../sobre/">Sobre el proyecto</a><a href="../../contacto/">Contacto</a></nav>
   </div>
 </header>
 <main id="main">
@@ -57,7 +57,7 @@
 <ol class="steps-list">
   <li>Crea, junto a <code>configuration.yaml</code>, un archivo <code>automatizaciones_domotica_facil.yaml</code> y pega dentro el YAML (en este formato cada automatización empieza por <code>- id:</code>).</li>
   <li>Añade a <code>configuration.yaml</code> esta línea, sin borrar la que ya tengas de <code>automation: !include automations.yaml</code>:
-<pre class="code"><code class="language-yaml">automation domotica_facil: !include automatizaciones_domotica_facil.yaml</code></pre></li>
+<pre class="code" tabindex="0"><code>automation domotica_facil: !include automatizaciones_domotica_facil.yaml</code></pre></li>
   <li>Ve a <strong>Herramientas para desarrolladores → YAML</strong> y pulsa <strong>Comprobar configuración</strong>. Si no ves la opción, activa el <strong>Modo avanzado</strong> en tu perfil de usuario.</li>
   <li>La primera vez, <strong>reinicia</strong> Home Assistant para que lea el nuevo <code>!include</code>. Después, cuando cambies solo el archivo, basta con <strong>Recargar automatizaciones</strong>.</li>
 </ol>

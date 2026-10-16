@@ -1,9 +1,9 @@
 // Tutoriales. Para añadir uno: copia un objeto de TUTORIALS, cambia slug/título/cuerpo y ejecuta `npm run build`.
 // Los bloques de código que salen del generador se generan aquí mismo, así coinciden siempre con la herramienta.
 import { TEMPLATES, generate, DOCS } from './generator.js';
+import { highlightYaml } from './highlight.js';
 
-const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-const code = (s, lang = 'yaml') => `<pre class="code"><code class="language-${lang}">${esc(s.trimEnd())}</code></pre>`;
+const code = (s) => `<pre class="code" tabindex="0"><code>${highlightYaml(s.trimEnd())}</code></pre>`;
 const gen = (tpl, values = TEMPLATES[tpl].example) => generate(tpl, values).yaml;
 const doc = (url, label) => `<a href="${url}" rel="noopener">${label}</a>`;
 

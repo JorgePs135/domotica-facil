@@ -186,3 +186,51 @@ th { background: var(--surface-2); }
 @media (prefers-reduced-motion: no-preference) {
   button, .button, .choice { transition: background-color .15s, border-color .15s, color .15s; }
 }
+
+/* v0.2: portada con demo, iconos, navegación con CTA y resaltado de YAML */
+:root { --y-key: #8fd8cb; --y-str: #f2cf85; --y-num: #f4a98f; --y-tpl: #c9b6ff; --y-dash: #7f948d; }
+.nav a.nav-cta { background: var(--accent); color: var(--on-accent); font-weight: 600; margin-left: 4px; }
+.nav a.nav-cta:hover { background: var(--accent-hover); color: var(--on-accent); }
+.nav a.nav-cta[aria-current="page"] { color: var(--on-accent); }
+.eyebrow { margin: 0 0 10px; color: var(--accent); font-weight: 700; font-size: .85rem; letter-spacing: .04em; text-transform: uppercase; }
+.button.big { min-height: 50px; padding: 12px 22px; font-size: 1rem; }
+.hero-grid { display: grid; gap: 32px; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); align-items: center; }
+.demo { margin: 0; background: var(--code-bg); border-radius: var(--radius); box-shadow: 0 2px 4px rgb(10 20 15 / .12), 0 18px 40px rgb(10 30 25 / .18); overflow: hidden; }
+.demo-bar { display: flex; align-items: center; gap: 6px; padding: 10px 14px; border-bottom: 1px solid rgb(255 255 255 / .08); }
+.demo-bar span { width: 10px; height: 10px; border-radius: 50%; background: rgb(255 255 255 / .18); }
+.demo-bar code { margin-left: 8px; background: none; color: var(--y-dash); font-size: .8rem; }
+.demo .code { border-radius: 0; max-height: none; font-size: .82rem; }
+.demo figcaption { padding: 10px 14px 14px; color: #b9c9c3; font-size: .85rem; border-top: 1px solid rgb(255 255 255 / .08); }
+.demo figcaption code { background: rgb(255 255 255 / .08); color: #e3efe9; }
+.how { list-style: none; padding: 0; margin: 0; display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); counter-reset: how; }
+.how li { counter-increment: how; position: relative; padding: 4px 0 0 56px; }
+.how .step-icon { position: absolute; left: 0; top: 0; display: grid; place-items: center; width: 42px; height: 42px; border-radius: 12px; background: var(--accent-soft); color: var(--accent); }
+.how .step-icon .icon { width: 22px; height: 22px; }
+.how h3::before { content: counter(how) ". "; color: var(--accent); }
+.how p { margin: 0; color: var(--muted); }
+.card-icon { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 10px; background: var(--accent-soft); color: var(--accent); margin-bottom: 12px; }
+.card-icon .icon { width: 22px; height: 22px; }
+.link-card { position: relative; cursor: pointer; transition: border-color .2s, box-shadow .2s, transform .2s; }
+.link-card h3 a::after { content: ""; position: absolute; inset: 0; border-radius: inherit; }
+.link-card:hover { border-color: var(--accent); box-shadow: 0 2px 4px rgb(20 30 25 / .06), 0 12px 28px rgb(15 110 99 / .14); }
+.link-card:focus-within { outline: 2px solid var(--accent); outline-offset: 2px; }
+.link-card h3 a:focus-visible { outline: none; }
+
+.choice { align-items: center; }
+.choice-icon { display: grid; place-items: center; flex: none; width: 36px; height: 36px; border-radius: 9px; background: var(--surface-2); color: var(--muted); }
+.choice:has(input:checked) .choice-icon { background: var(--accent); color: var(--on-accent); }
+.choice input { margin-top: 0; }
+.cta-band { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 32px; margin-top: 48px; padding: 24px 28px;
+  background: var(--accent-soft); border-radius: var(--radius); }
+.cta-band h2 { margin: 0 0 4px; }
+.cta-band p { margin: 0; color: var(--muted); max-width: 60ch; }
+.y-key { color: var(--y-key); }
+.y-str { color: var(--y-str); }
+.y-num { color: var(--y-num); }
+.y-tpl { color: var(--y-tpl); }
+.y-dash { color: var(--y-dash); }
+@media (max-width: 900px) { .hero-grid { grid-template-columns: minmax(0, 1fr); } }
+@media (prefers-reduced-motion: reduce) { .link-card { transition: none; } }
+@media (min-width: 901px) { .demo .code { white-space: pre-wrap; overflow-wrap: anywhere; } }
+.card-icon { display: inline-grid; vertical-align: middle; margin: 0 8px 12px 0; }
+.link-card .tag { margin: 0 0 12px; vertical-align: middle; }

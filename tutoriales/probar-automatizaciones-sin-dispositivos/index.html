@@ -21,7 +21,7 @@
 <header class="site-header">
   <div class="wrap bar">
     <a class="brand" href="../../"><svg class="icon brand-mark" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 9.5V20h13V9.5"/><path d="M10 20v-5h4v5"/></svg><span>Domótica Fácil</span></a>
-    <nav class="nav" aria-label="Principal"><a href="../../">Inicio</a><a href="../../generador/">Generador</a><a href="../../tutoriales/" aria-current="page">Tutoriales</a><a href="../../sobre/">Sobre el proyecto</a><a href="../../contacto/">Contacto</a></nav>
+    <nav class="nav" aria-label="Principal"><a href="../../">Inicio</a><a href="../../generador/" class="nav-cta">Generador</a><a href="../../tutoriales/" aria-current="page">Tutoriales</a><a href="../../sobre/">Sobre el proyecto</a><a href="../../contacto/">Contacto</a></nav>
   </div>
 </header>
 <main id="main">
@@ -58,25 +58,25 @@
   <li>Un <strong>número</strong> (<code>input_number</code>) para simular un valor: <code>input_number.temperatura_prueba</code>, con mínimo 0 y máximo 40.</li>
 </ul>
 <p>Los ayudantes tienen otro dominio (<code>input_boolean</code> en lugar de <code>binary_sensor</code>), así que el generador no los acepta como sensor. Para probar, cambia temporalmente el <code>entity_id</code> del disparador en el YAML. Por ejemplo, la plantilla de aviso apuntando al número de prueba:</p>
-<pre class="code"><code class="language-yaml">alias: &quot;Aviso de temperatura alta&quot;
-description: &quot;Avisa cuando input_number.temperatura_prueba supera 28. Generada con Domótica Fácil.&quot;
-mode: single
-triggers:
-  - trigger: numeric_state
-    entity_id: input_number.temperatura_prueba
-    above: 28
-    for:
-      minutes: 10
-actions:
-  - action: persistent_notification.create
-    data:
-      title: &quot;Aviso de Home Assistant&quot;
-      message: &quot;La temperatura del salón ha pasado de 28 °C. Valor actual: {{ states('input_number.temperatura_prueba') }}&quot;</code></pre>
+<pre class="code" tabindex="0"><code><span class="y-key">alias</span>: <span class="y-str">&quot;Aviso de temperatura alta&quot;</span>
+<span class="y-key">description</span>: <span class="y-str">&quot;Avisa cuando input_number.temperatura_prueba supera 28. Generada con Domótica Fácil.&quot;</span>
+<span class="y-key">mode</span>: single
+<span class="y-key">triggers</span>:
+  <span class="y-dash">- </span><span class="y-key">trigger</span>: numeric_state
+    <span class="y-key">entity_id</span>: input_number.temperatura_prueba
+    <span class="y-key">above</span>: <span class="y-num">28</span>
+    <span class="y-key">for</span>:
+      <span class="y-key">minutes</span>: <span class="y-num">10</span>
+<span class="y-key">actions</span>:
+  <span class="y-dash">- </span><span class="y-key">action</span>: persistent_notification.create
+    <span class="y-key">data</span>:
+      <span class="y-key">title</span>: <span class="y-str">&quot;Aviso de Home Assistant&quot;</span>
+      <span class="y-key">message</span>: <span class="y-str">&quot;La temperatura del salón ha pasado de 28 °C. Valor actual: <span class="y-tpl">{{ states('input_number.temperatura_prueba') }}</span>&quot;</span></code></pre>
 <p>Mueve el control deslizante del ayudante por encima de 28 y espera los minutos indicados (o pon <code>for</code> a 0 para la prueba). Cuando llegue el sensor de verdad, vuelve a poner su <code>entity_id</code>.</p>
 
 <h2>Método 3: la integración demo</h2>
 <p>Home Assistant incluye una integración <strong>demo</strong> que crea luces, interruptores y sensores ficticios. Úsala solo en una instalación de pruebas, porque llena la tuya de entidades. Se activa añadiendo a <code>configuration.yaml</code>:</p>
-<pre class="code"><code class="language-yaml">demo:</code></pre>
+<pre class="code" tabindex="0"><code><span class="y-key">demo</span>:</code></pre>
 <p>Tras reiniciar, busca en <strong>Estados</strong> las entidades nuevas (luces, sensores) y úsalas como destino de tus automatizaciones para ver cómo cambian.</p>
 <p class="note">Este método lo hemos comprobado leyendo el código de Home Assistant 2026.10 (la integración acepta <code>demo:</code> y crea sensores binarios, luces, sensores e interruptores), pero no lo hemos ejecutado en una instalación.</p>
 

@@ -21,7 +21,7 @@
 <header class="site-header">
   <div class="wrap bar">
     <a class="brand" href="../../"><svg class="icon brand-mark" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 9.5V20h13V9.5"/><path d="M10 20v-5h4v5"/></svg><span>Domótica Fácil</span></a>
-    <nav class="nav" aria-label="Principal"><a href="../../">Inicio</a><a href="../../generador/">Generador</a><a href="../../tutoriales/" aria-current="page">Tutoriales</a><a href="../../sobre/">Sobre el proyecto</a><a href="../../contacto/">Contacto</a></nav>
+    <nav class="nav" aria-label="Principal"><a href="../../">Inicio</a><a href="../../generador/" class="nav-cta">Generador</a><a href="../../tutoriales/" aria-current="page">Tutoriales</a><a href="../../sobre/">Sobre el proyecto</a><a href="../../contacto/">Contacto</a></nav>
   </div>
 </header>
 <main id="main">
@@ -44,34 +44,34 @@
 
 <h2>El código</h2>
 <p>Con un sensor <code>binary_sensor.movimiento_pasillo</code>, una luz <code>light.pasillo</code>, 2 minutos de espera, brillo al 60 % y solo de noche:</p>
-<pre class="code"><code class="language-yaml">alias: &quot;Luz del pasillo por movimiento&quot;
-description: &quot;Enciende light.pasillo con movimiento y la apaga tras 2 min sin movimiento. Generada con Domótica Fácil.&quot;
-mode: restart
-triggers:
-  - trigger: state
-    entity_id: binary_sensor.movimiento_pasillo
-    from: &quot;off&quot;
-    to: &quot;on&quot;
-conditions:
-  - condition: state
-    entity_id: sun.sun
-    state: below_horizon
-actions:
-  - action: light.turn_on
-    target:
-      entity_id: light.pasillo
-    data:
-      brightness_pct: 60
-  - wait_for_trigger:
-      - trigger: state
-        entity_id: binary_sensor.movimiento_pasillo
-        from: &quot;on&quot;
-        to: &quot;off&quot;
-  - delay:
-      minutes: 2
-  - action: light.turn_off
-    target:
-      entity_id: light.pasillo</code></pre>
+<pre class="code" tabindex="0"><code><span class="y-key">alias</span>: <span class="y-str">&quot;Luz del pasillo por movimiento&quot;</span>
+<span class="y-key">description</span>: <span class="y-str">&quot;Enciende light.pasillo con movimiento y la apaga tras 2 min sin movimiento. Generada con Domótica Fácil.&quot;</span>
+<span class="y-key">mode</span>: restart
+<span class="y-key">triggers</span>:
+  <span class="y-dash">- </span><span class="y-key">trigger</span>: state
+    <span class="y-key">entity_id</span>: binary_sensor.movimiento_pasillo
+    <span class="y-key">from</span>: <span class="y-str">&quot;off&quot;</span>
+    <span class="y-key">to</span>: <span class="y-str">&quot;on&quot;</span>
+<span class="y-key">conditions</span>:
+  <span class="y-dash">- </span><span class="y-key">condition</span>: state
+    <span class="y-key">entity_id</span>: sun.sun
+    <span class="y-key">state</span>: below_horizon
+<span class="y-key">actions</span>:
+  <span class="y-dash">- </span><span class="y-key">action</span>: light.turn_on
+    <span class="y-key">target</span>:
+      <span class="y-key">entity_id</span>: light.pasillo
+    <span class="y-key">data</span>:
+      <span class="y-key">brightness_pct</span>: <span class="y-num">60</span>
+  <span class="y-dash">- </span><span class="y-key">wait_for_trigger</span>:
+      <span class="y-dash">- </span><span class="y-key">trigger</span>: state
+        <span class="y-key">entity_id</span>: binary_sensor.movimiento_pasillo
+        <span class="y-key">from</span>: <span class="y-str">&quot;on&quot;</span>
+        <span class="y-key">to</span>: <span class="y-str">&quot;off&quot;</span>
+  <span class="y-dash">- </span><span class="y-key">delay</span>:
+      <span class="y-key">minutes</span>: <span class="y-num">2</span>
+  <span class="y-dash">- </span><span class="y-key">action</span>: light.turn_off
+    <span class="y-key">target</span>:
+      <span class="y-key">entity_id</span>: light.pasillo</code></pre>
 <p class="cta"><a class="button primary" href="../../generador/?plantilla=movimiento">Genera la tuya con tus entidades</a></p>
 
 <h2>Qué hace cada parte</h2>
