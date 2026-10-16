@@ -8,7 +8,7 @@ export const SITE = {
   // Responsable del sitio, para la página de privacidad
   owner: 'Jorge',
   // Etiquetas de verificación de Google Search Console (solo en la portada)
-  googleVerification: [],
+  googleVerification: ['yUz9Kyp4dAHZlUdIR__wWD0DANAZehw6UsyLyLH1Xhg'],
   revisado: '2026-10-16',
   // Versión de Home Assistant con la que se validó el YAML generado (scripts/validar_ha/)
   haVersion: '2026.10',
