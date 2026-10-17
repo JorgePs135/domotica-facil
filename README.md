@@ -29,6 +29,20 @@ validar_ha/             Tests con Home Assistant real (Python, en WSL)
 
 Las páginas `index.html` son **archivos generados**: no las edites a mano. Cambia `src/` y ejecuta `npm run build`.
 
+## Diseño, tipografía e imágenes
+
+- Diseño v0.3 hecho con los skills `taste-skill` (dirección «El producto actúa», semilla 827500377) y `ui-ux-pro-max`, instalados solo en `.claude/skills/` (no se suben a git). Los informes del inspector quedan en `.taste-skill/` (tampoco se suben).
+- Tipografía: **Bricolage Grotesque** (SIL Open Font License, `fonts/OFL.txt`), alojada en `fonts/`. No se usa Clash Grotesk, la que proponía el skill: su licencia (ITF FFL) prohíbe distribuirla en repositorios públicos.
+- Imágenes de dominio público (CC0) del Art Institute of Chicago, recortadas y comprimidas en `img/`. Los créditos están en `src/credits.js` y se muestran en cada hoja de la portada:
+  - Mary Cassatt, *Bajo la lámpara*, c. 1882 — https://www.artic.edu/artworks/26693
+  - Honoré Daumier, *El termómetro del ingeniero Chevalier tenía razón…*, 1845 — https://www.artic.edu/artworks/7786
+  - Edvard Munch, *El jardín de noche*, 1902 — https://www.artic.edu/artworks/17354
+- Para revisar el diseño tras un cambio (requiere Edge o Chrome):
+
+```powershell
+node .claude/skills/taste-skill/scripts/inspect.mjs index.html
+```
+
 ## Probarlo en Windows
 
 Requisito: [Node.js](https://nodejs.org/) 20 o superior (tienes la v24). No hay que instalar dependencias.

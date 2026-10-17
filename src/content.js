@@ -16,6 +16,7 @@ export const VERIFICATION = {
 export const TUTORIALS = [
   {
     slug: 'anadir-automatizacion-yaml-home-assistant',
+    h1: 'Dónde pegar el YAML',
     title: 'Cómo añadir una automatización en YAML a Home Assistant',
     description: 'Dónde pegar el YAML de una automatización en Home Assistant, cómo reconocer la sintaxis antigua y nueva, errores frecuentes y cómo comprobar que funciona.',
     summary: 'Has encontrado o generado el YAML de una automatización y no sabes dónde pegarlo. Dos formas seguras, con sus errores típicos.',
@@ -90,6 +91,7 @@ ${code('automation domotica_facil: !include automatizaciones_domotica_facil.yaml
   },
   {
     slug: 'luz-sensor-movimiento-home-assistant',
+    h1: 'Una luz que se apaga sola',
     title: 'Luz con sensor de movimiento que se apaga sola en Home Assistant',
     description: 'Automatización de Home Assistant para encender una luz con un sensor de movimiento y apagarla tras unos minutos sin movimiento, explicada línea a línea, con errores frecuentes.',
     summary: 'La automatización más pedida: encender con movimiento y apagar al rato. Por qué conviene el modo «restart» y qué falla a menudo.',
@@ -151,6 +153,7 @@ ${code(gen('movimiento'))}
   },
   {
     slug: 'probar-automatizaciones-sin-dispositivos',
+    h1: 'Probar sin tener los dispositivos',
     title: 'Probar automatizaciones de Home Assistant sin tener los dispositivos',
     description: 'Tres formas de comprobar una automatización de Home Assistant sin sensores ni luces reales: cambiar estados a mano, crear ayudantes y usar la integración demo.',
     summary: '¿Aún no tienes el sensor o no quieres esperar a que haga calor? Simula los estados y mira la traza.',

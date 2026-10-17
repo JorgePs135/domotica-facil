@@ -12,31 +12,32 @@
 <meta property="og:title" content="Generador de automatizaciones para Home Assistant | Domótica Fácil">
 <meta property="og:description" content="Crea automatizaciones de Home Assistant sin escribir YAML: luces con sensor de movimiento, avisos cuando un sensor supera un valor y acciones a una hora. Copia o descarga el código.">
 <meta property="og:url" content="https://domotica-facil.pages.dev/generador/">
-<meta name="color-scheme" content="light dark">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#1c1c1c">
 <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../fonts/bricolage-grotesque.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../style.css">
+<script>document.documentElement.classList.add('js')</script>
 </head>
 <body>
 <a class="skip" href="#main">Saltar al contenido</a>
 <header class="site-header">
-  <div class="wrap bar">
-    <a class="brand" href="../"><svg class="icon brand-mark" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 9.5V20h13V9.5"/><path d="M10 20v-5h4v5"/></svg><span>Domótica Fácil</span></a>
-    <nav class="nav" aria-label="Principal"><a href="../">Inicio</a><a href="../generador/" class="nav-cta" aria-current="page">Generador</a><a href="../tutoriales/">Tutoriales</a><a href="../sobre/">Sobre el proyecto</a><a href="../contacto/">Contacto</a></nav>
-  </div>
+  <a class="wordmark" href="../">Domótica Fácil</a>
+  <nav class="nav" aria-label="Principal"><a href="../tutoriales/">Tutoriales</a><a href="../sobre/">Sobre el proyecto</a><a href="../contacto/">Contacto</a><a href="../generador/" class="nav-action" aria-current="page">Generador</a></nav>
 </header>
 <main id="main">
 <div class="wrap">
   <section class="intro">
-    <h1>Generador de automatizaciones para Home Assistant</h1>
+    <h1>Generador de automatizaciones</h1>
     <p class="lead">Elige una plantilla, escribe tus entidades y copia el YAML. Debajo del código tienes qué hace, qué necesitas y cómo añadirlo.</p>
   </section>
   <div id="generator" class="generator">
     <div class="gen-input">
       <fieldset class="chooser">
         <legend>1. Elige una plantilla</legend>
-      <label class="choice"><input type="radio" name="template" value="movimiento" checked><span class="choice-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2"/><path d="M8.5 8.5a5 5 0 0 0 0 7"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M5.6 5.6a9 9 0 0 0 0 12.8"/><path d="M18.4 5.6a9 9 0 0 1 0 12.8"/></svg></span><span><strong>A. Luz con sensor de movimiento</strong><small>Enciende una luz al detectar movimiento y la apaga cuando deja de haberlo.</small></span></label>
-      <label class="choice"><input type="radio" name="template" value="umbral"><span class="choice-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14 14.8V5a2 2 0 0 0-4 0v9.8a4 4 0 1 0 4 0Z"/><path d="M12 9v7"/></svg></span><span><strong>B. Aviso cuando un sensor pasa de un valor</strong><small>Envía un aviso cuando un sensor numérico supera (o baja de) un límite.</small></span></label>
-      <label class="choice"><input type="radio" name="template" value="horario"><span class="choice-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><span><strong>C. Encender o apagar a una hora</strong><small>Enciende o apaga una luz o un enchufe a una hora fija, todos los días o solo algunos.</small></span></label>
+      <label class="choice"><input type="radio" name="template" value="movimiento" checked><span><strong>A. Luz con sensor de movimiento</strong><small>Enciende una luz al detectar movimiento y la apaga cuando deja de haberlo.</small></span></label>
+      <label class="choice"><input type="radio" name="template" value="umbral"><span><strong>B. Aviso cuando un sensor pasa de un valor</strong><small>Envía un aviso cuando un sensor numérico supera (o baja de) un límite.</small></span></label>
+      <label class="choice"><input type="radio" name="template" value="horario"><span><strong>C. Encender o apagar a una hora</strong><small>Enciende o apaga una luz o un enchufe a una hora fija, todos los días o solo algunos.</small></span></label>
       </fieldset>
       <h2 class="step-title">2. Rellena tus datos</h2>
       
@@ -142,10 +143,9 @@
 </div>
 </main>
 <footer class="site-footer">
-  <div class="wrap">
-    <p>Domótica Fácil es un proyecto independiente y no está afiliado a Home Assistant ni a la Open Home Foundation. Revisa siempre el código antes de usarlo en tu instalación.</p>
-    <p class="meta">Revisado el 16/10/2026 · <a href="../privacidad/">Privacidad</a> · <a href="../contacto/">Contacto</a> · <a href="https://github.com/JorgePs135/domotica-facil">Código fuente</a></p>
-  </div>
+  <p class="f-what">Proyecto independiente, sin relación con Home Assistant ni la Open Home Foundation.</p>
+  <p class="f-links"><a href="../generador/">Generador</a><a href="../tutoriales/">Tutoriales</a><a href="../contacto/">Contacto</a><a href="https://github.com/JorgePs135/domotica-facil">Código</a></p>
+  <p class="f-year">Revisado el 16/10/2026 · <a href="../privacidad/">Privacidad</a></p>
 </footer>
 <script type="module" src="../src/app.js"></script>
 </body>

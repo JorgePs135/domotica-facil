@@ -7,7 +7,7 @@ import { build, productsHtml } from '../scripts/build.js';
 
 const out = mkdtempSync(join(tmpdir(), 'df-'));
 const pages = build(out);
-for (const f of ['style.css', 'favicon.svg', 'src']) cpSync(f, join(out, f), { recursive: true });
+for (const f of ['style.css', 'favicon.svg', 'src', 'fonts', 'img']) cpSync(f, join(out, f), { recursive: true });
 const html = (p) => readFileSync(join(out, p, 'index.html'), 'utf8');
 test.after(() => rmSync(out, { recursive: true, force: true }));
 

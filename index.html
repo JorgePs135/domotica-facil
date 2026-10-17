@@ -3,41 +3,45 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Domótica Fácil: generador de automatizaciones para Home Assistant</title>
+<title>Domótica Fácil: automatizaciones de Home Assistant sin escribir YAML</title>
 <meta name="description" content="Generador gratuito de automatizaciones para Home Assistant en español: luz con sensor de movimiento, avisos por umbral y acciones a una hora. YAML con la sintaxis actual, explicado y listo para pegar.">
 <link rel="canonical" href="https://domotica-facil.pages.dev/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="es_ES">
 <meta property="og:site_name" content="Domótica Fácil">
-<meta property="og:title" content="Domótica Fácil: generador de automatizaciones para Home Assistant">
+<meta property="og:title" content="Domótica Fácil: automatizaciones de Home Assistant sin escribir YAML">
 <meta property="og:description" content="Generador gratuito de automatizaciones para Home Assistant en español: luz con sensor de movimiento, avisos por umbral y acciones a una hora. YAML con la sintaxis actual, explicado y listo para pegar.">
 <meta property="og:url" content="https://domotica-facil.pages.dev/">
-<meta name="color-scheme" content="light dark">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#1c1c1c">
 <meta name="google-site-verification" content="yUz9Kyp4dAHZlUdIR__wWD0DANAZehw6UsyLyLH1Xhg">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preload" href="fonts/bricolage-grotesque.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="style.css">
+<script>document.documentElement.classList.add('js')</script>
 </head>
-<body>
+<body class="home">
 <a class="skip" href="#main">Saltar al contenido</a>
 <header class="site-header">
-  <div class="wrap bar">
-    <a class="brand" href="./"><svg class="icon brand-mark" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 9.5V20h13V9.5"/><path d="M10 20v-5h4v5"/></svg><span>Domótica Fácil</span></a>
-    <nav class="nav" aria-label="Principal"><a href="" aria-current="page">Inicio</a><a href="generador/" class="nav-cta">Generador</a><a href="tutoriales/">Tutoriales</a><a href="sobre/">Sobre el proyecto</a><a href="contacto/">Contacto</a></nav>
-  </div>
+  <a class="wordmark" href="./">Domótica Fácil</a>
+  <nav class="nav" aria-label="Principal"><a href="tutoriales/">Tutoriales</a><a href="sobre/">Sobre el proyecto</a><a href="contacto/">Contacto</a><a href="generador/" class="nav-action">Generador</a></nav>
 </header>
 <main id="main">
-<section class="hero">
-  <div class="wrap hero-grid">
-    <div>
-      <p class="eyebrow">Gratis · en español · sin registro</p>
-      <h1>Automatizaciones de Home Assistant sin pelearte con el YAML</h1>
-      <p class="lead">Rellena un formulario con tus entidades y obtén una automatización lista para pegar, con la sintaxis actual, explicada paso a paso y con lo que necesitas tener configurado.</p>
-      <p class="actions"><a class="button primary big" href="generador/">Abrir el generador<svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a><a class="button secondary big" href="tutoriales/">Ver tutoriales</a></p>
-      <p class="privacy"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 19 6v5c0 4.5-3 8.4-7 10-4-1.6-7-5.5-7-10V6l7-3Z"/><path d="m9 12 2 2 4-4"/></svg><span>Funciona en tu navegador: no se envía ni se guarda nada de lo que escribes.</span></p>
+<section class="hero" aria-labelledby="hero-h">
+  <div class="hero-text">
+    <h1 id="hero-h" class="lines"><span class="line"><span data-line style="--i:0">Home Assistant</span></span><span class="line"><span data-line style="--i:1">sin escribir YAML</span></span></h1>
+    <div class="hero-foot" data-after-lines>
+      <p class="hero-lead">Escribe en español lo que quieres que pase en casa y llévate la automatización lista para pegar, con la sintaxis actual.</p>
+      <p class="actions"><a class="button primary" href="generador/">Abrir el generador</a><span class="aside">Funciona en tu navegador. No se envía nada.</span></p>
     </div>
-    <figure class="demo">
-      <div class="demo-bar" aria-hidden="true"><span></span><span></span><span></span><code>luz_del_pasillo.yaml</code></div>
-      <pre class="code" tabindex="0" aria-label="Ejemplo de YAML generado"><code><span class="y-key">alias</span>: <span class="y-str">&quot;Luz del pasillo por movimiento&quot;</span>
+  </div>
+  <div class="hero-stage">
+    <form class="translator" data-ui id="translator" aria-label="Prueba el generador con tu frase">
+      <p class="t-label">Tu frase</p>
+      <p class="t-sentence">Cuando <label class="blank"><span class="sr-only">Sensor de movimiento</span><input name="sensor" value="binary_sensor.movimiento_pasillo" spellcheck="false" autocapitalize="off" autocomplete="off" style="--w: 26ch"></label> detecte movimiento, enciende <label class="blank"><span class="sr-only">Luz o enchufe</span><input name="target" value="light.pasillo" spellcheck="false" autocapitalize="off" autocomplete="off" style="--w: 11ch"></label> y apágala <label class="blank num"><span class="sr-only">Minutos</span><input name="minutes" value="2" inputmode="numeric" autocomplete="off" style="--w: 3ch"></label> minutos después.</p>
+      <p class="t-error" id="t-error" role="status"></p>
+      <div class="t-file"><span>luz_del_pasillo.yaml</span><button type="button" id="t-copy">Copiar</button></div>
+      <pre class="code" tabindex="0" aria-label="YAML generado a partir de tu frase"><code id="t-yaml"><span class="y-key">alias</span>: <span class="y-str">&quot;Luz del pasillo por movimiento&quot;</span>
 <span class="y-key">description</span>: <span class="y-str">&quot;Enciende light.pasillo con movimiento y la apaga tras 2 min sin movimiento. Generada con Domótica Fácil.&quot;</span>
 <span class="y-key">mode</span>: restart
 <span class="y-key">triggers</span>:
@@ -59,86 +63,167 @@
   <span class="y-dash">- </span><span class="y-key">action</span>: light.turn_off
     <span class="y-key">target</span>:
       <span class="y-key">entity_id</span>: light.pasillo</code></pre>
-      <figcaption>Resultado real de la plantilla A: <code>binary_sensor.movimiento_pasillo</code> enciende <code>light.pasillo</code> y la apaga 2 minutos después de que deje de haber movimiento.</figcaption>
-    </figure>
+    </form>
   </div>
 </section>
-<div class="wrap">
-  <section aria-labelledby="t-como">
-    <h2 id="t-como">Cómo funciona</h2>
-    <ol class="how">
-      <li><span class="step-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 9h8M8 13h8M8 17h5"/></svg></span><h3><span class="sr-only">Paso 1: </span>Elige y rellena</h3><p>Escoge una plantilla y escribe tus entidades (las copias de Herramientas para desarrolladores → Estados).</p></li>
-      <li><span class="step-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h8"/></svg></span><h3><span class="sr-only">Paso 2: </span>Copia el YAML</h3><p>El código aparece al momento, con la sintaxis actual. Cópialo o descárgalo como archivo .yaml.</p></li>
-      <li><span class="step-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 19 6v5c0 4.5-3 8.4-7 10-4-1.6-7-5.5-7-10V6l7-3Z"/><path d="m9 12 2 2 4-4"/></svg></span><h3><span class="sr-only">Paso 3: </span>Pégalo y compruébalo</h3><p>Debajo del código tienes los pasos para añadirlo a Home Assistant y cómo ver si funciona.</p></li>
-    </ol>
-  </section>
-  <section aria-labelledby="t-plantillas">
-    <h2 id="t-plantillas">Qué puedes generar</h2>
-    <ul class="cards">
-      <li class="card link-card">
-        <span class="card-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2"/><path d="M8.5 8.5a5 5 0 0 0 0 7"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M5.6 5.6a9 9 0 0 0 0 12.8"/><path d="M18.4 5.6a9 9 0 0 1 0 12.8"/></svg></span>
-        <span class="tag">Plantilla A</span>
-        <h3><a href="generador/?plantilla=movimiento">Luz con sensor de movimiento</a></h3>
-        <p>Enciende una luz al detectar movimiento y la apaga cuando deja de haberlo.</p>
-      </li>
-      <li class="card link-card">
-        <span class="card-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14 14.8V5a2 2 0 0 0-4 0v9.8a4 4 0 1 0 4 0Z"/><path d="M12 9v7"/></svg></span>
-        <span class="tag">Plantilla B</span>
-        <h3><a href="generador/?plantilla=umbral">Aviso cuando un sensor pasa de un valor</a></h3>
-        <p>Envía un aviso cuando un sensor numérico supera (o baja de) un límite.</p>
-      </li>
-      <li class="card link-card">
-        <span class="card-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
-        <span class="tag">Plantilla C</span>
-        <h3><a href="generador/?plantilla=horario">Encender o apagar a una hora</a></h3>
-        <p>Enciende o apaga una luz o un enchufe a una hora fija, todos los días o solo algunos.</p>
-      </li>
-    </ul>
-  </section>
-  <section aria-labelledby="t-por-que">
-    <h2 id="t-por-que">Por qué otro generador</h2>
-    <ul class="points">
-      <li><strong>Sintaxis vigente.</strong> Muchos ejemplos de foros usan <code>platform:</code> y <code>service:</code>. El generador usa la sintaxis actual (<code>trigger:</code>, <code>action:</code>) y cada plantilla se valida con Home Assistant 2026.10.</li>
-      <li><strong>Sin sorpresas.</strong> El código sale de plantillas fijas y revisadas, no de una IA: los mismos datos dan siempre el mismo resultado.</li>
-      <li><strong>Te dice lo que falta.</strong> Requisitos, integraciones necesarias, advertencias y enlaces a la documentación oficial de cada parte.</li>
-      <li><strong>En español y sin cuentas.</strong> Pensado para quien empieza, sin anuncios ni seguimiento.</li>
-    </ul>
-  </section>
-  <section aria-labelledby="t-tutoriales">
-    <h2 id="t-tutoriales">Tutoriales</h2>
-    <ul class="cards">
-    <li class="card link-card">
-      <span class="card-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2V5Z"/><path d="M4 19a2 2 0 0 1 2-2h13"/></svg></span>
-      <h3><a href="tutoriales/anadir-automatizacion-yaml-home-assistant/">Cómo añadir una automatización en YAML a Home Assistant</a></h3>
-      <p>Has encontrado o generado el YAML de una automatización y no sabes dónde pegarlo. Dos formas seguras, con sus errores típicos.</p>
-    </li>
-    <li class="card link-card">
-      <span class="card-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2V5Z"/><path d="M4 19a2 2 0 0 1 2-2h13"/></svg></span>
-      <h3><a href="tutoriales/luz-sensor-movimiento-home-assistant/">Luz con sensor de movimiento que se apaga sola en Home Assistant</a></h3>
-      <p>La automatización más pedida: encender con movimiento y apagar al rato. Por qué conviene el modo «restart» y qué falla a menudo.</p>
-    </li>
-    <li class="card link-card">
-      <span class="card-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2V5Z"/><path d="M4 19a2 2 0 0 1 2-2h13"/></svg></span>
-      <h3><a href="tutoriales/probar-automatizaciones-sin-dispositivos/">Probar automatizaciones de Home Assistant sin tener los dispositivos</a></h3>
-      <p>¿Aún no tienes el sensor o no quieres esperar a que haga calor? Simula los estados y mira la traza.</p>
-    </li>
-    </ul>
-  </section>
-  <section class="cta-band" aria-labelledby="t-falta">
-    <div>
-      <h2 id="t-falta">¿Echas en falta una plantilla?</h2>
-      <p>Las próximas se eligen según lo que pida la gente. Cuéntanos qué automatización te gustaría generar.</p>
+
+<section class="showcase" aria-labelledby="show-h">
+  <h2 id="show-h" class="sr-only">Las tres plantillas</h2>
+  <div class="show-index" role="tablist" aria-label="Plantillas"><button type="button" role="tab" id="tab-movimiento" aria-controls="sheet-movimiento" aria-selected="true" data-sheet="movimiento">La luz del pasillo</button><button type="button" role="tab" id="tab-umbral" aria-controls="sheet-umbral" aria-selected="false" data-sheet="umbral">El salón a 28 °C</button><button type="button" role="tab" id="tab-horario" aria-controls="sheet-horario" aria-selected="false" data-sheet="horario">El jardín a medianoche</button></div>
+  <div class="stage">
+      <div class="stage-item" id="sheet-movimiento" role="tabpanel" aria-labelledby="tab-movimiento">
+        <figure class="art">
+          <img src="img/bajo-la-lampara-cassatt.jpg" width="916" height="826" alt="Aguafuerte: dos mujeres leen y cosen de noche alrededor de una lámpara encendida." decoding="async">
+        </figure>
+        <article class="sheet" data-ui>
+          <p class="sheet-file">Plantilla A · <span>luz_del_pasillo.yaml</span></p>
+          <p class="sheet-says">Cuando «binary_sensor.movimiento_pasillo» detecte movimiento y sea de noche, se encenderá «light.pasillo» al 60 %.</p>
+          <pre class="code paper"><code><span class="y-key">alias</span>: <span class="y-str">&quot;Luz del pasillo por movimiento&quot;</span>
+<span class="y-key">description</span>: <span class="y-str">&quot;Enciende light.pasillo con movimiento y la apaga tras 2 min sin movimiento. Generada con Domótica Fácil.&quot;</span>
+<span class="y-key">mode</span>: restart
+<span class="y-key">triggers</span>:
+  <span class="y-dash">- </span><span class="y-key">trigger</span>: state
+    <span class="y-key">entity_id</span>: binary_sensor.movimiento_pasillo
+    <span class="y-key">from</span>: <span class="y-str">&quot;off&quot;</span>
+    <span class="y-key">to</span>: <span class="y-str">&quot;on&quot;</span>
+<span class="y-key">conditions</span>:
+  <span class="y-dash">- </span><span class="y-key">condition</span>: state
+    <span class="y-key">entity_id</span>: sun.sun
+    <span class="y-key">state</span>: below_horizon
+<span class="y-key">actions</span>:
+  <span class="y-dash">- </span><span class="y-key">action</span>: light.turn_on
+    <span class="y-key">target</span>:
+      <span class="y-key">entity_id</span>: light.pasillo
+    <span class="y-key">data</span>:
+      <span class="y-key">brightness_pct</span>: <span class="y-num">60</span>
+  <span class="y-dash">- </span><span class="y-key">wait_for_trigger</span>:
+      <span class="y-dash">- </span><span class="y-key">trigger</span>: state
+        <span class="y-key">entity_id</span>: binary_sensor.movimiento_pasillo
+        <span class="y-key">from</span>: <span class="y-str">&quot;on&quot;</span>
+        <span class="y-key">to</span>: <span class="y-str">&quot;off&quot;</span>
+  <span class="y-dash">- </span><span class="y-key">delay</span>:
+      <span class="y-key">minutes</span>: <span class="y-num">2</span>
+  <span class="y-dash">- </span><span class="y-key">action</span>: light.turn_off
+    <span class="y-key">target</span>:
+      <span class="y-key">entity_id</span>: light.pasillo</code></pre>
+          <p><a class="text-link" href="generador/?plantilla=movimiento">Abrir esta plantilla en el generador</a></p>
+          <p class="sheet-credit">Grabado: Mary Cassatt, <cite>Bajo la lámpara</cite>, c. 1882. <a href="https://www.artic.edu/artworks/26693" rel="noopener">Art Institute of Chicago</a>, dominio público.</p>
+        </article>
+      </div>
+      <div class="stage-item" id="sheet-umbral" role="tabpanel" aria-labelledby="tab-umbral" data-off>
+        <figure class="art">
+          <img src="img/termometro-daumier.jpg" width="1004" height="1151" alt="Litografía: un corrillo de hombres con sombrero de copa mira un termómetro gigante en un escaparate." loading="lazy" decoding="async">
+        </figure>
+        <article class="sheet" data-ui>
+          <p class="sheet-file">Plantilla B · <span>aviso_temperatura.yaml</span></p>
+          <p class="sheet-says">Cuando «sensor.temperatura_salon» pase de 28 y siga así 10 min, se enviará una notificación que verás en la barra lateral de Home Assistant.</p>
+          <pre class="code paper"><code><span class="y-key">alias</span>: <span class="y-str">&quot;Aviso de temperatura alta&quot;</span>
+<span class="y-key">description</span>: <span class="y-str">&quot;Avisa cuando sensor.temperatura_salon supera 28. Generada con Domótica Fácil.&quot;</span>
+<span class="y-key">mode</span>: single
+<span class="y-key">triggers</span>:
+  <span class="y-dash">- </span><span class="y-key">trigger</span>: numeric_state
+    <span class="y-key">entity_id</span>: sensor.temperatura_salon
+    <span class="y-key">above</span>: <span class="y-num">28</span>
+    <span class="y-key">for</span>:
+      <span class="y-key">minutes</span>: <span class="y-num">10</span>
+<span class="y-key">actions</span>:
+  <span class="y-dash">- </span><span class="y-key">action</span>: persistent_notification.create
+    <span class="y-key">data</span>:
+      <span class="y-key">title</span>: <span class="y-str">&quot;Aviso de Home Assistant&quot;</span>
+      <span class="y-key">message</span>: <span class="y-str">&quot;La temperatura del salón ha pasado de 28 °C. Valor actual: <span class="y-tpl">{{ states('sensor.temperatura_salon') }}</span>&quot;</span></code></pre>
+          <p><a class="text-link" href="generador/?plantilla=umbral">Abrir esta plantilla en el generador</a></p>
+          <p class="sheet-credit">Grabado: Honoré Daumier, <cite>El termómetro del ingeniero Chevalier tenía razón…</cite>, 1845. <a href="https://www.artic.edu/artworks/7786" rel="noopener">Art Institute of Chicago</a>, dominio público.</p>
+        </article>
+      </div>
+      <div class="stage-item" id="sheet-horario" role="tabpanel" aria-labelledby="tab-horario" data-off>
+        <figure class="art">
+          <img src="img/jardin-de-noche-munch.jpg" width="1048" height="760" alt="Aguafuerte: un jardín de noche con una estatua, cipreses y una casa al fondo." loading="lazy" decoding="async">
+        </figure>
+        <article class="sheet" data-ui>
+          <p class="sheet-file">Plantilla C · <span>jardin_medianoche.yaml</span></p>
+          <p class="sheet-says">A las 00:00, todos los días, se apagará «light.jardin».</p>
+          <pre class="code paper"><code><span class="y-key">alias</span>: <span class="y-str">&quot;Apagar la luz del jardín a medianoche&quot;</span>
+<span class="y-key">description</span>: <span class="y-str">&quot;Apaga light.jardin a las 00:00. Generada con Domótica Fácil.&quot;</span>
+<span class="y-key">mode</span>: single
+<span class="y-key">triggers</span>:
+  <span class="y-dash">- </span><span class="y-key">trigger</span>: time
+    <span class="y-key">at</span>: <span class="y-str">&quot;00:00:00&quot;</span>
+<span class="y-key">actions</span>:
+  <span class="y-dash">- </span><span class="y-key">action</span>: light.turn_off
+    <span class="y-key">target</span>:
+      <span class="y-key">entity_id</span>: light.jardin</code></pre>
+          <p><a class="text-link" href="generador/?plantilla=horario">Abrir esta plantilla en el generador</a></p>
+          <p class="sheet-credit">Grabado: Edvard Munch, <cite>El jardín de noche</cite>, 1902. <a href="https://www.artic.edu/artworks/17354" rel="noopener">Art Institute of Chicago</a>, dominio público.</p>
+        </article>
+      </div>
+  </div>
+</section>
+
+<section class="how" aria-labelledby="how-h">
+  <div class="how-text">
+    <h2 id="how-h" data-reveal>Tres pasos</h2>
+    <ol class="steps"><li class="step" data-step="0"><p class="step-line">Primero, elige qué quieres que pase.</p><p>Luz con movimiento, un aviso cuando un sensor pasa de un valor o algo a una hora fija.</p></li><li class="step" data-step="1"><p class="step-line">Después, escribe tus entidades.</p><p>Se copian de Herramientas para desarrolladores → Estados. Si una no tiene buena forma, te lo dice al momento.</p></li><li class="step" data-step="2"><p class="step-line">Por último, pégalo en Home Assistant.</p><p>Ajustes → Automatizaciones y escenas → Editar en YAML. Debajo del código tienes cómo comprobar que funciona.</p></li></ol>
+  </div>
+  <div class="how-stage">
+    <div class="mini" data-ui data-state="0" id="mini" aria-hidden="true">
+      <div class="mini-s0">
+        <p class="mini-h">1. Elige una plantilla</p>
+        <p class="mini-choice on">A. Luz con sensor de movimiento</p>
+        <p class="mini-choice">B. Aviso cuando un sensor pasa de un valor</p>
+        <p class="mini-choice">C. Encender o apagar a una hora</p>
+      </div>
+      <div class="mini-s1">
+        <p class="mini-h">2. Rellena tus datos</p>
+        <p class="mini-field"><span>Sensor de movimiento</span><b>binary_sensor.movimiento_pasillo</b></p>
+        <p class="mini-field focus"><span>Luz o enchufe que se enciende</span><b>light.pasillo<i class="caret"></i></b></p>
+        <p class="mini-field"><span>Minutos sin movimiento</span><b>2</b></p>
+      </div>
+      <div class="mini-s2">
+        <p class="mini-h">3. Tu automatización</p>
+        <pre class="code"><code><span class="y-key">alias</span>: <span class="y-str">&quot;Luz del pasillo por movimiento&quot;</span>
+<span class="y-key">description</span>: <span class="y-str">&quot;Enciende light.pasillo con movimiento y la apaga tras 2 min sin movimiento. Generada con Domótica Fácil.&quot;</span>
+<span class="y-key">mode</span>: restart
+<span class="y-key">triggers</span>:
+  <span class="y-dash">- </span><span class="y-key">trigger</span>: state
+    <span class="y-key">entity_id</span>: binary_sensor.movimiento_pasillo
+    <span class="y-key">from</span>: <span class="y-str">&quot;off&quot;</span>
+    <span class="y-key">to</span>: <span class="y-str">&quot;on&quot;</span>
+<span class="y-key">actions</span>:</code></pre>
+        <p class="mini-toast">Código copiado al portapapeles.</p>
+      </div>
     </div>
-    <a class="button secondary" href="contacto/">Proponer una plantilla</a>
-  </section>
+  </div>
+</section>
+
+<section class="proof" aria-labelledby="proof-h">
+  <ul class="tiles">
+    <li class="tile head" data-reveal><h2 id="proof-h">Comprobado, no prometido</h2></li><li class="tile" data-reveal><strong>15 pruebas</strong><span>con el núcleo real de Home Assistant 2026.10.1 y entidades simuladas</span></li><li class="tile" data-reveal><strong>0 errores</strong><span>en el comprobador oficial de configuración (check_config)</span></li><li class="tile" data-reveal><strong>0 dispositivos</strong><span>Aún no lo hemos probado con hardware real, y cada página lo dice.</span></li><li class="tile" data-reveal><strong>Sin IA</strong><span>Reglas fijas: los mismos datos dan siempre el mismo YAML.</span></li><li class="tile" data-reveal><strong>0 cookies</strong><span>Ni analítica ni rastreadores. Lo que escribes no sale de tu navegador.</span></li><li class="tile" data-reveal><strong>3 plantillas</strong><span>Luz con movimiento, aviso por umbral y acción a una hora.</span></li>
+  </ul>
+</section>
+
+<div class="chapter-light">
+<section class="reading" aria-labelledby="read-h">
+  <h2 id="read-h" data-reveal>Para leer después</h2>
+  <p class="group">Tutoriales</p>
+  <ul class="rows" data-reveal><li><a href="tutoriales/anadir-automatizacion-yaml-home-assistant/"><span class="dot" aria-hidden="true"></span>Cómo añadir una automatización en YAML a Home Assistant</a><span class="val">Revisado</span></li><li><a href="tutoriales/luz-sensor-movimiento-home-assistant/"><span class="dot" aria-hidden="true"></span>Luz con sensor de movimiento que se apaga sola en Home Assistant</a><span class="val">Validado y simulado</span></li><li><a href="tutoriales/probar-automatizaciones-sin-dispositivos/"><span class="dot" aria-hidden="true"></span>Probar automatizaciones de Home Assistant sin tener los dispositivos</a><span class="val">Validado y simulado</span></li></ul>
+  <p class="group">Documentación oficial que usamos</p>
+  <ul class="rows" data-reveal><li><a href="https://www.home-assistant.io/docs/automation/yaml/" rel="noopener"><span class="dot quiet" aria-hidden="true"></span>Automatizaciones en YAML</a><span class="val">home-assistant.io</span></li><li><a href="https://www.home-assistant.io/triggers/state/" rel="noopener"><span class="dot quiet" aria-hidden="true"></span>Disparador de estado</a><span class="val">home-assistant.io</span></li><li><a href="https://www.home-assistant.io/triggers/numeric_state/" rel="noopener"><span class="dot quiet" aria-hidden="true"></span>Disparador numérico</a><span class="val">home-assistant.io</span></li><li><a href="https://www.home-assistant.io/triggers/time/" rel="noopener"><span class="dot quiet" aria-hidden="true"></span>Disparador de hora</a><span class="val">home-assistant.io</span></li><li><a href="https://www.home-assistant.io/building-blocks/wait_for_trigger/" rel="noopener"><span class="dot quiet" aria-hidden="true"></span>Esperar a un disparador</a><span class="val">home-assistant.io</span></li><li><a href="https://www.home-assistant.io/docs/automation/modes/" rel="noopener"><span class="dot quiet" aria-hidden="true"></span>Modos de ejecución</a><span class="val">home-assistant.io</span></li><li><a href="https://www.home-assistant.io/docs/automation/troubleshooting/" rel="noopener"><span class="dot quiet" aria-hidden="true"></span>Depurar con trazas</a><span class="val">home-assistant.io</span></li></ul>
+</section>
+
+<section class="ask" aria-labelledby="ask-h">
+  <h2 id="ask-h" class="sr-only">Propón una plantilla</h2>
+  <form class="ask-form" action="https://github.com/JorgePs135/domotica-facil/issues/new" method="get" target="_blank" id="ask" data-reveal>
+    <p class="ask-line"><label for="ask-input">Me falta una plantilla para</label> <input id="ask-input" name="title" placeholder="la persiana" required maxlength="80" autocomplete="off"> <button type="submit">pedirla</button></p>
+    <p class="ask-note">Se abre una incidencia en GitHub con tu idea, que puedes revisar antes de enviarla. Hace falta una cuenta gratuita.</p>
+  </form>
+</section>
 </div>
 </main>
 <footer class="site-footer">
-  <div class="wrap">
-    <p>Domótica Fácil es un proyecto independiente y no está afiliado a Home Assistant ni a la Open Home Foundation. Revisa siempre el código antes de usarlo en tu instalación.</p>
-    <p class="meta">Revisado el 16/10/2026 · <a href="privacidad/">Privacidad</a> · <a href="contacto/">Contacto</a> · <a href="https://github.com/JorgePs135/domotica-facil">Código fuente</a></p>
-  </div>
+  <p class="f-what">Proyecto independiente, sin relación con Home Assistant ni la Open Home Foundation.</p>
+  <p class="f-links"><a href="generador/">Generador</a><a href="tutoriales/">Tutoriales</a><a href="contacto/">Contacto</a><a href="https://github.com/JorgePs135/domotica-facil">Código</a></p>
+  <p class="f-year">Revisado el 16/10/2026 · <a href="privacidad/">Privacidad</a></p>
 </footer>
-
+<script type="module" src="src/home.js"></script>
 </body>
 </html>
